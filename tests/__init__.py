@@ -1,0 +1,3 @@
+from WeatherTest import WeatherTest
+from WeatherFileTest import WeatherFileTest
+from ComponentTest import SnowDepthComponentTest
