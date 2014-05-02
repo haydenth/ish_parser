@@ -1,13 +1,18 @@
-import sys
 from Temperature import Temperature
 from Units import Units
 from datetime import datetime
 from Components import SnowDepthComponent
 
+
 class WeatherReportException(BaseException):
   ''' handler class for exceptions '''
 
+
 class WeatherReport(object):
+  ''' This is the class which can parse a SINGLE NOAA weather 
+  report. It first reads the mandatory data elements, storing them
+  as attributes. It then parses the additional data elements and makes
+  those methods available via magic methods '''
 
   RECORD_DELIMITER = "\n"
   PREAMBLE_LENGTH = 105
@@ -140,7 +145,7 @@ class WeatherReport(object):
          'GM1': ['SOLAR-IRRADIANCE', 30],
          'GN1': ['SOLAR-RADIATION', 28],
          'GO1': ['NET-SOLAR-RADIATION', 19],
-         'GP1': ['MODELED-SOLAR', 31], 
+         'GP1': ['MODELED-SOLAR', 31],
          'GQ1': ['HOURLY-SOLAR-ANGLE', 14],
          'GR1': ['HOURLY-EXTRATERRESTRIAL-RADIATION', 14],
          'HL1': ['HAIL', 4],
@@ -229,7 +234,8 @@ class WeatherReport(object):
     expected_length = int(noaa_string[0:4]) + self.PREAMBLE_LENGTH
     actual_length = len(noaa_string)
     if actual_length != expected_length:
-      msg = "Non matching lengths. Expected %d, got %d" % (expected_length, actual_length)
+      msg = "Non matching lengths. Expected %d, got %d" % (expected_length,
+                                                           actual_length)
       raise WeatherReportException(msg)
 
     self.datetime = datetime.strptime(noaa_string[15:27], '%Y%m%d%H%M')
@@ -267,11 +273,15 @@ class WeatherReport(object):
     if additional == 'ADD':
       position = 108
       while position <= expected_length:
-        (position, (addl_code, addl_string)) = self._get_component(noaa_string, position)
+        (position, (addl_code, addl_string)) = self._get_component(noaa_string,
+                                                                   position)
         self._additional[addl_code] = addl_string
 
   def _get_component(self, string, initial_pos):
-    add_code = string[initial_pos:initial_pos+3]
+    ''' given a string and a position, return both an updated position and
+    either a Component Object or a String back to the caller '''
+
+    add_code = string[initial_pos:initial_pos + 3]
     initial_pos += 3
     try:
       useable_map = self.MAP[add_code]
@@ -279,7 +289,7 @@ class WeatherReport(object):
       raise BaseException("Cannot find code %s in string %s (%d)" % (add_code, string, initial_pos))
     new_position = initial_pos + useable_map[1]
     string_value = string[initial_pos:new_position]
-    
+
     try:
       object_value = useable_map[2]()
       object_value.loads(string_value)
@@ -289,7 +299,10 @@ class WeatherReport(object):
     return (new_position, [add_code, object_value])
 
   def get_additional_field(self, addl_code):
-    return self._additional[addl_code] 
+    ''' Given an additional field code (AA1, AJ1..), return whatever match
+    we have available for this code '''
+    return self._additional[addl_code]
 
   def additional(self):
+    ''' return the entire additional dictionary '''
     return self._additional
