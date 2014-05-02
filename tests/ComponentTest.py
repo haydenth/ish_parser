@@ -8,4 +8,3 @@ class SnowDepthComponentTest(unittest.TestCase):
     sd = SnowDepthComponent()
     sd.loads(simple_string)
     self.assertEquals(sd.snow_depth, 8)
-    

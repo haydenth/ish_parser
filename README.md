@@ -22,6 +22,13 @@ You'll see a row:
 
 The airport code is 725300. 
 
+Developing
+--------------------------------
+If you make some code changes (yay) please write the appropriate tests and run all unittests before sending pull request.  You can do this with
+```
+python -m unittest tests
+```
+
 Contact
 --------------------------------
 For questions, contact Tom Hayden (thayden@gmail.com)

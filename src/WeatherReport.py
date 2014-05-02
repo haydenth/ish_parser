@@ -214,6 +214,14 @@ class WeatherReport(object):
          'SA1': ['SEA-SURFACE-TEMPERATURE', 5],
          'ST1': ['SOIL-TEMPERATURE', 17]}
 
+  def __getattr__(self, attribute_name):
+    for (addl_code, addl) in self._additional.items():
+      try:
+        addl_value = getattr(addl, attribute_name)
+        return addl_value
+      except:
+        ''' no attribute found '''
+
   def loads(self, noaa_string):
     ''' load in a report (or set) from a string '''
     self.weather_station = noaa_string[4:10]
@@ -254,13 +262,13 @@ class WeatherReport(object):
     self.sea_level_pressure_quality = noaa_string[104:104]
 
     ''' handle the additional fields '''
-    self._additional = []
+    self._additional = {}
     additional = noaa_string[105:108]
     if additional == 'ADD':
       position = 108
       while position <= expected_length:
-        (position, addl_string) = self._get_component(noaa_string, position)
-        self._additional.append(addl_string)
+        (position, (addl_code, addl_string)) = self._get_component(noaa_string, position)
+        self._additional[addl_code] = addl_string
 
   def _get_component(self, string, initial_pos):
     add_code = string[initial_pos:initial_pos+3]
@@ -270,15 +278,18 @@ class WeatherReport(object):
     except:
       raise BaseException("Cannot find code %s in string %s (%d)" % (add_code, string, initial_pos))
     new_position = initial_pos + useable_map[1]
-    object_value = string[initial_pos:new_position]
+    string_value = string[initial_pos:new_position]
     
     try:
-      object_value = useable_map[2](object_value)
-      object_value.loads()
+      object_value = useable_map[2]()
+      object_value.loads(string_value)
     except:
-      ''' do nothing '''
+      object_value = string_value
 
     return (new_position, [add_code, object_value])
+
+  def get_additional_field(self, addl_code):
+    return self._additional[addl_code] 
 
   def additional(self):
     return self._additional
