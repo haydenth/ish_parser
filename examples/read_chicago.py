@@ -1,7 +1,7 @@
 import csv
 from src.WeatherFile import WeatherFile
 
-file = 'tests/725300.txt'
+file = '725300.txt'
 output = 'results.csv'
 
 output_fh = open(output, 'wb')

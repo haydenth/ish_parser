@@ -272,7 +272,7 @@ class WeatherReport(object):
     additional = noaa_string[105:108]
     if additional == 'ADD':
       position = 108
-      while position <= expected_length:
+      while position < expected_length:
         (position, (addl_code, addl_string)) = self._get_component(noaa_string,
                                                                    position)
         self._additional[addl_code] = addl_string
