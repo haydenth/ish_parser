@@ -26,7 +26,7 @@ class ish_report_test(unittest.TestCase):
     self.assertEquals(weather.weather_station, '725300')
     self.assertEquals(weather.report_type, 'FM-15')
     self.assertEquals(weather.elevation, 205)
-    self.assertEquals(weather.wind_speed, 15)
+    self.assertEquals(weather.wind_speed, 1.5)
     self.assertEquals(weather.sky_ceiling, 579)
     self.assertEquals(weather.air_temperature, -12)
     self.assertEquals(weather.air_temperature.get_fahrenheit(), 10.4)
@@ -38,6 +38,13 @@ class ish_report_test(unittest.TestCase):
     weather.loads(string)
     self.assertEquals(weather.get_additional_field('AA1'), '01000095')
     self.assertRaises(BaseException, weather.get_additional_field, 'AJ1')
+
+  def test_boston(self):
+    string = """0253725090147392005010101547+42361-071011FM-15+0009KBOS V0202305N00675018295MN0160935N5+00785+00335102175ADDAA101000025GA1075+018295999GA2085+025915999GD13991+0182959GD24991+0259159GF108991999999999999999999MA1102175102065MW1001REMMET12112/31/04 20:54:26 METAR KBOS 010154Z 23013KT 10SM BKN060 OVC085 08/03 A3017 RMK AO2 RAB23E32 SLP217 P0000 T00780033 (ETM)"""
+    weather = ish_report()
+    weather.loads(string)
+    self.assertEquals(weather.air_temperature.get_fahrenheit(), 44.6)
+    self.assertEquals(weather.wind_speed, 6.7)
 
   def test_snowfall(self):
     string = """0479725300948462014010105517+41995-087934FM-15+0205KORD V0300105N00465007015MN0028165N5-01225-01565102655ADDAA101001095AA206005691AJ100089500007694AU110030015AW1715GA1075+007015991GA2075+011285991GA3085+016765991GD13991+0070159GD23991+0112859GD34991+0167659GE19MSL   +99999+99999GF199999990990007011991991KA1060M-01111KA2060N-01221KA3240M-01111KA4240N-01671MA1102515100045MD1690154+9999REMMET17012/31/13 23:51:03 METAR KORD 010551Z 01009KT 1 3/4SM -SN BKN023 BKN037 OVC055 M12/M16 A3027 RMK AO2 SLP265 4/003 P0005 60022 T11221156 11111 21122 411111167 56015 $ (SMN)EQDQ01  00558PRCP06"""

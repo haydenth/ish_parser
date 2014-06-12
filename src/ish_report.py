@@ -17,6 +17,7 @@ class ish_report(object):
   RECORD_DELIMITER = "\n"
   PREAMBLE_LENGTH = 105
   TEMPERATURE_SCALE = 10
+  SPEED_SCALE = 10
   ADDR_CODE_LENGTH = 3
   GEO_SCALE = 1000
   MISSING = '9999'
@@ -284,7 +285,7 @@ class ish_report(object):
     self.wind_observation_direction = noaa_string[60:63]
     self.wind_observation_direction_quality = noaa_string[63:64]
     self.wind_observation_direction_type = noaa_string[64:64]
-    self.wind_speed = int(noaa_string[65:69])
+    self.wind_speed = int(noaa_string[65:69]) / float(self.SPEED_SCALE)
     self.wind_speed_quality = noaa_string[69:70]
     self.sky_ceiling = int(noaa_string[70:75])
     self.sky_ceiling_quality = noaa_string[75:76]
