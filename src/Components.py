@@ -1,4 +1,4 @@
-from src.Distance import Distance
+from Distance import Distance
 
 class BaseComponent(object):
   ''' base component handler '''
