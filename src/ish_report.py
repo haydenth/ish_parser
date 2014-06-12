@@ -1,4 +1,5 @@
 from Temperature import Temperature
+from Speed import Speed
 from Units import Units
 from datetime import datetime
 from Components import SnowDepthComponent, PrecipitationComponent
@@ -289,8 +290,9 @@ class ish_report(object):
     self.wind_observation_direction = noaa_string[60:63]
     self.wind_observation_direction_quality = noaa_string[63:64]
     self.wind_observation_direction_type = noaa_string[64:64]
-    self.wind_speed = int(noaa_string[65:69]) / float(self.SPEED_SCALE)
-    self.wind_speed_quality = noaa_string[69:70]
+    self.wind_speed = Speed(int(noaa_string[65:69]) / float(self.SPEED_SCALE),
+                            Speed.METERSPERSECOND,
+                            noaa_string[69:70])
     self.sky_ceiling = int(noaa_string[70:75])
     self.sky_ceiling_quality = noaa_string[75:76]
     self.sky_ceiling_determination = noaa_string[76:77]
