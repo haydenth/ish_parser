@@ -1,5 +1,5 @@
 class ObservationException(BaseException):
-  ''' base exception handling class for  Observations'''
+  ''' base exception handling class for  ish_observations'''
 
 
 class Observation(object):
