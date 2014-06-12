@@ -8,11 +8,12 @@ class Distance(Observation):
   INCHES = 2
   MISSING = 999
 
-  def get_fahrenheit(self):
+  def get_inches(self):
+    ''' convert the measurement to inches '''
     if self._obs_value == self.MISSING:
       return 'MISSING'
     if self._obs_units == self.MILLIMETERS:
-      return round(0.393701 * self._obs_value, 2)
+      return round(0.393701 * self._obs_value, 4)
 
   def __str__(self):
     if self._obs_value == self.MISSING:
