@@ -1,4 +1,4 @@
-from WeatherReport import WeatherReport, WeatherReportException
+from ish_report import ish_report, ish_reportException
 from Observation import Observation, ObservationException
 from Temperature import Temperature
 from ish_parser import ish_parser

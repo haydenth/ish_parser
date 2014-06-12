@@ -1,6 +1,6 @@
 import unittest
 from src.ish_parser import ish_parser
-from src.WeatherReport import WeatherReport
+from src.ish_report import ish_report
 
 class ish_parser_test(unittest.TestCase):
 
@@ -16,7 +16,7 @@ class ish_parser_test(unittest.TestCase):
     wf = ish_parser()
     wf.loads(content)
     self.assertEquals(len(wf.get_reports()), 4262)
-    self.assertEquals(type(wf.get_reports()[10]), WeatherReport)
+    self.assertEquals(type(wf.get_reports()[10]), ish_report)
     self.assertEquals(len(wf.get_observations()), 3135)
 
   def test_random_old_file(self):
@@ -27,7 +27,7 @@ class ish_parser_test(unittest.TestCase):
     wf = ish_parser()
     wf.loads(content)
     self.assertEquals(len(wf.get_reports()), 8760)
-    self.assertEquals(type(wf.get_reports()[10]), WeatherReport)
+    self.assertEquals(type(wf.get_reports()[10]), ish_report)
     self.assertEquals(len(wf.get_observations()), 7466)
 
   def test_random_other_file(self):
@@ -38,7 +38,7 @@ class ish_parser_test(unittest.TestCase):
     wf = ish_parser()
     wf.loads(content)
     self.assertEquals(len(wf.get_reports()), 2816)
-    self.assertEquals(type(wf.get_reports()[10]), WeatherReport)
+    self.assertEquals(type(wf.get_reports()[10]), ish_report)
     self.assertEquals(len(wf.get_observations()), 2816)
 
   def test_other_airport(self):
@@ -47,5 +47,5 @@ class ish_parser_test(unittest.TestCase):
     wf = ish_parser()
     wf.loads(content)
     self.assertEquals(len(wf.get_reports()), 4237)
-    self.assertEquals(type(wf.get_reports()[10]), WeatherReport)
+    self.assertEquals(type(wf.get_reports()[10]), ish_report)
     self.assertEquals(len(wf.get_observations()), 3333)

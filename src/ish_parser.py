@@ -1,4 +1,4 @@
-from WeatherReport import WeatherReport
+from ish_report import ish_report
 
 
 class ish_parser(object):
@@ -14,7 +14,7 @@ class ish_parser(object):
       if len(line) < 10:
         continue
 
-      report = WeatherReport()
+      report = ish_report()
       try:
         report.loads(line)
       except BaseException, err:

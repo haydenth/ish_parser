@@ -4,11 +4,11 @@ from datetime import datetime
 from Components import SnowDepthComponent
 
 
-class WeatherReportException(BaseException):
+class ish_reportException(BaseException):
   ''' handler class for exceptions '''
 
 
-class WeatherReport(object):
+class ish_report(object):
   ''' This is the class which can parse a SINGLE NOAA weather 
   report. It first reads the mandatory data elements, storing them
   as attributes. It then parses the additional data elements and makes
@@ -271,7 +271,7 @@ class WeatherReport(object):
     if actual_length != expected_length:
       msg = "Non matching lengths. Expected %d, got %d" % (expected_length,
                                                            actual_length)
-      raise WeatherReportException(msg)
+      raise ish_reportException(msg)
 
     self.datetime = datetime.strptime(noaa_string[15:27], '%Y%m%d%H%M')
     self.report_type = noaa_string[41:46].strip()

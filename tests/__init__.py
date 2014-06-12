@@ -1,3 +1,3 @@
-from WeatherTest import WeatherTest
+from ish_report_test import ish_report_test
 from ish_parser_test import ish_parser_test
 from ComponentTest import SnowDepthComponentTest
