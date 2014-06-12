@@ -1,0 +1,21 @@
+from Observation import Observation
+
+
+class Distance(Observation):
+  ''' observation of a temperature, which we can convert
+  between farenheight and celsius, yay '''
+  MILLIMETERS = 1
+  INCHES = 2
+  MISSING = 999
+
+  def get_fahrenheit(self):
+    if self._obs_value == self.MISSING:
+      return 'MISSING'
+    if self._obs_units == self.MILLIMETERS:
+      return round(0.393701 * self._obs_value, 2)
+
+  def __str__(self):
+    if self._obs_value == self.MISSING:
+      return 'MISSING'
+    else:
+      return str(self._obs_value)

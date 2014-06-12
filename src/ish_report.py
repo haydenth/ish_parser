@@ -1,7 +1,7 @@
 from Temperature import Temperature
 from Units import Units
 from datetime import datetime
-from Components import SnowDepthComponent
+from Components import SnowDepthComponent, PrecipitationComponent
 
 
 class ish_reportException(BaseException):
@@ -21,10 +21,10 @@ class ish_report(object):
   ADDR_CODE_LENGTH = 3
   GEO_SCALE = 1000
   MISSING = '9999'
-  MAP = {'AA1': ['LIQUID-PRECIP', 8],
-         'AA2': ['LIQUID-PRECIP', 8],
-         'AA3': ['LIQUID-PRECIP', 8],
-         'AA4': ['LIQUID-PRECIP', 8],
+  MAP = {'AA1': ['LIQUID-PRECIP', 8, PrecipitationComponent],
+         'AA2': ['LIQUID-PRECIP', 8, PrecipitationComponent],
+         'AA3': ['LIQUID-PRECIP', 8, PrecipitationComponent],
+         'AA4': ['LIQUID-PRECIP', 8, PrecipitationComponent],
          'AB1': ['LIQUID-PRECIP-MONTHLY', 7],
          'AC1': ['PRECIPITATION-OBSERVATION-HISTORY', 3],
          'AD1': ['LIQUID-PRECIP-GREATEST-AMOUNT-24-HOURS', 19],
@@ -256,12 +256,16 @@ class ish_report(object):
          'WJ1': ['WATER-LEVEL-OBSERVATION', 19]}
 
   def __getattr__(self, attribute_name):
+    values_to_return = []
     for (addl_code, addl) in self._additional.items():
       try:
         addl_value = getattr(addl, attribute_name)
-        return addl_value
+        values_to_return.append(addl_value)
       except:
         ''' no attribute found '''
+
+    if len(values_to_return) > 0:
+      return values_to_return
 
   def loads(self, noaa_string):
     ''' load in a report (or set) from a string '''

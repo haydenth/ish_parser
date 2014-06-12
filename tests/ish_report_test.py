@@ -16,6 +16,10 @@ class ish_report_test(unittest.TestCase):
     self.assertEquals(weather.longitude, -87.934)
     self.assertEquals(weather.visibility_distance, 2012)
     self.assertEquals(weather.air_temperature, -12)
+    self.assertEquals(len(weather.precipitation), 1)
+    precip = weather.precipitation[0]
+    self.assertEquals(precip['hours'], 1)
+    self.assertEquals(precip['depth'], 0)
 
   def test_fm15(self):
     noaa_string = """0250725300948462014010100517+41995-087934FM-15+0205KORD V0302505N00155005795MN0024145N5-01115-01445102735ADDAA101000895AU110030015AW1715GA1085+005795991GD14991+0057959GE19MSL   +99999+99999GF199999990990005791991991MA1102575100115REMMET11612/31/13 18:51:03 METAR KORD 010051Z 25003KT 1 1/2SM -SN OVC019 M11/M14 A3029 RMK AO2 SLP273 P0003 T11111144 $ (KLC)"""
@@ -36,7 +40,6 @@ class ish_report_test(unittest.TestCase):
     string = """0190722540139042014042819537+30183-097680FM-15+0151KAUS V0203505N004152200059N0160935N5+03175+00065100325ADDAA101000095GA1005+999999999GD10991+9999999GF100991999999999999999999MA1100445098655REMMET09504/28/14 13:53:02 METAR KAUS 281953Z 35008KT 10SM CLR 32/01 A2966 RMK AO2 SLP032 T03170006 (JP)"""
     weather = ish_report()
     weather.loads(string)
-    self.assertEquals(weather.get_additional_field('AA1'), '01000095')
     self.assertRaises(BaseException, weather.get_additional_field, 'AJ1')
 
   def test_boston(self):
@@ -51,8 +54,8 @@ class ish_report_test(unittest.TestCase):
     weather = ish_report()
     weather.loads(string)
     self.assertEquals(weather.datetime.date(), datetime.date(2014, 01, 01))
-    self.assertEquals(weather.snow_depth, 8)
-    #self.assertEquals(weather.present_weather_observation, 'Snow, Slight')
+    self.assertEquals(weather.snow_depth, [{'depth': 8, 'quality': '5', 'condition': '9'}])
+    self.assertEquals(len(weather.precipitation), 2)
 
   def test_random_sod_file(self):
     noaa_string = """0141725300948462008020205596+41986-087914SOD  +0205KORD V030999999999999999999999999999+99999+99999999999ADDAA124003691AJ100159199999999AN1024008999KA1025M-00111KA2025N-00441MG1098959999999OE11240116234099999OE22240093906099999OE33240045699999999"""
