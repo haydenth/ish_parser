@@ -18,8 +18,8 @@ class WeatherFile(object):
       try:
         report.loads(line)
       except BaseException, err:
-        print line
-        raise err
+        ''' print line '''
+        #raise err
 
       self._reports.append(report)
 

@@ -17,6 +17,7 @@ class WeatherReport(object):
   RECORD_DELIMITER = "\n"
   PREAMBLE_LENGTH = 105
   TEMPERATURE_SCALE = 10
+  ADDR_CODE_LENGTH = 3
   GEO_SCALE = 1000
   MISSING = '9999'
   MAP = {'AA1': ['LIQUID-PRECIP', 8],
@@ -24,7 +25,7 @@ class WeatherReport(object):
          'AA3': ['LIQUID-PRECIP', 8],
          'AA4': ['LIQUID-PRECIP', 8],
          'AB1': ['LIQUID-PRECIP-MONTHLY', 7],
-         'AC1': ['PRECIPITATION-OBSERVATION-HISTORY', 6],
+         'AC1': ['PRECIPITATION-OBSERVATION-HISTORY', 3],
          'AD1': ['LIQUID-PRECIP-GREATEST-AMOUNT-24-HOURS', 19],
          'AE1': ['LIQUID-PREICP-NUMBER-OF-DAYS', 12],
          'AG1': ['PRECIPITATION-ESTIMATED-OBSERVATION', 4],
@@ -202,9 +203,12 @@ class WeatherReport(object):
          'Q02': ['ORIGINAL-OBSERVATION-ELEMENT', 13],
          'Q03': ['ORIGINAL-OBSERVATION-ELEMENT', 13],
          'Q04': ['ORIGINAL-OBSERVATION-ELEMENT', 13],
-         'REM': ['REMARKS', 1095],
+         'REM': ['REMARKS', False],
          'EQD': ['ELEMENT QUALITY', 16],
          'NO1': ['ORIGINAL-OBSERVATION', 13],
+         'OA1': ['SUPPLEMENTARY-WIND-OBSERVATION', 8],
+         'OA2': ['SUPPLEMENTARY-WIND-OBSERVATION', 8],
+         'OA3': ['SUPPLEMENTARY-WIND-OBSERVATION', 8],
          'OC1': ['WIND-GUST-OBSERVATION', 5],
          'OD1': ['SUPPLEMENTARY-WIND-OBSERVATION', 11],
          'OD2': ['SUPPLEMENTARY-WIND-OBSERVATION', 11],
@@ -213,11 +217,42 @@ class WeatherReport(object):
          'OE2': ['SUMMARY-OF-DAY-WIND', 16],
          'OE3': ['SUMMARY-OF-DAY-WIND', 16],
          'QNN': ['ORIGINAL-OBSERVATION-NCDC', 999],
+         'R01': ['ORIGINATED_NCDC_DATA', 13],
+         'R02': ['ORIGINATED_NCDC_DATA', 13],
+         'R03': ['ORIGINATED_NCDC_DATA', 13],
+         'R04': ['ORIGINATED_NCDC_DATA', 13],
+         'R05': ['ORIGINATED_NCDC_DATA', 13],
+         'R06': ['ORIGINATED_NCDC_DATA', 13],
+         'R07': ['ORIGINATED_NCDC_DATA', 13],
+         'R08': ['ORIGINATED_NCDC_DATA', 13],
+         'R09': ['ORIGINATED_NCDC_DATA', 13],
+         'R10': ['ORIGINATED_NCDC_DATA', 13],
+         'R11': ['ORIGINATED_NCDC_DATA', 13],
+         'R12': ['ORIGINATED_NCDC_DATA', 13],
+         'R13': ['ORIGINATED_NCDC_DATA', 13],
+         'R14': ['ORIGINATED_NCDC_DATA', 13],
+         'R15': ['ORIGINATED_NCDC_DATA', 13],
+         'R16': ['ORIGINATED_NCDC_DATA', 13],
+         'R17': ['ORIGINATED_NCDC_DATA', 13],
+         'R18': ['ORIGINATED_NCDC_DATA', 13],
+         'R19': ['ORIGINATED_NCDC_DATA', 13],
+         'R20': ['ORIGINATED_NCDC_DATA', 13],
+         'R21': ['ORIGINATED_NCDC_DATA', 13],
+         'R22': ['ORIGINATED_NCDC_DATA', 13],
+         'R23': ['ORIGINATED_NCDC_DATA', 13],
+         'R24': ['ORIGINATED_NCDC_DATA', 13],
          'RH1': ['RELATIVE-HUMIDITY', 9],
          'RH2': ['RELATIVE-HUMIDITY', 9],
          'RH3': ['RELATIVE-HUMIDITY', 9],
          'SA1': ['SEA-SURFACE-TEMPERATURE', 5],
-         'ST1': ['SOIL-TEMPERATURE', 17]}
+         'ST1': ['SOIL-TEMPERATURE', 17],
+         'UA1': ['WAVE-MEASUREMENT', 10],
+         'UG1': ['WAVE-MEASUREMENT-SWELL', 9],
+         'UG2': ['WAVE-MEASUREMENT-SECONDARY-SWELL', 9],
+         'WA1': ['PLATFORM-ICE-ACCRETION', 6],
+         'WD1': ['WATER-SURFACE-ICE', 20],
+         'WG1': ['WATER_SURFACE-ICE-HISTORICAL', 11],
+         'WJ1': ['WATER-LEVEL-OBSERVATION', 19]}
 
   def __getattr__(self, attribute_name):
     for (addl_code, addl) in self._additional.items():
@@ -273,21 +308,34 @@ class WeatherReport(object):
     if additional == 'ADD':
       position = 108
       while position < expected_length:
+        #try:
         (position, (addl_code, addl_string)) = self._get_component(noaa_string,
                                                                    position)
         self._additional[addl_code] = addl_string
+        #except BaseException, err:
+        #  print err
 
   def _get_component(self, string, initial_pos):
     ''' given a string and a position, return both an updated position and
     either a Component Object or a String back to the caller '''
 
-    add_code = string[initial_pos:initial_pos + 3]
-    initial_pos += 3
+    add_code = string[initial_pos:initial_pos + self.ADDR_CODE_LENGTH]
+    initial_pos += self.ADDR_CODE_LENGTH 
     try:
       useable_map = self.MAP[add_code]
     except:
       raise BaseException("Cannot find code %s in string %s (%d)" % (add_code, string, initial_pos))
-    new_position = initial_pos + useable_map[1]
+
+    # if there is no defined lenght, then read next three chars to get it
+    # this only applies to REM types, which have 3 chars for the type, then variable
+    if useable_map[1] is False:
+      chars_to_read = string[initial_pos + self.ADDR_CODE_LENGTH:initial_pos + (self.ADDR_CODE_LENGTH * 2)]
+      chars_to_read = int(chars_to_read)
+      initial_pos += (self.ADDR_CODE_LENGTH * 2)
+    else:
+      chars_to_read = useable_map[1]
+
+    new_position = initial_pos + chars_to_read
     string_value = string[initial_pos:new_position]
 
     try:
