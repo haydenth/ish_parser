@@ -7,4 +7,4 @@ setup(name='ish_parser',
       author='thayden',
       url='https://github.com/haydenth/ish_parser',
       package_dir={'': 'src'},
-      py_modules=['ish_parser', 'ish_report'])
+      py_modules=['ish_parser', 'ish_report', 'Temperature', 'Observation'])
