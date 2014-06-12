@@ -1,7 +1,7 @@
 from WeatherReport import WeatherReport
 
 
-class WeatherFile(object):
+class ish_parser(object):
 
   OBS_TYPES = ['FM-12', 'FM-15', 'SAO']
 

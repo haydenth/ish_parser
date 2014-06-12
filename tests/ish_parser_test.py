@@ -1,8 +1,8 @@
 import unittest
-from src.WeatherFile import WeatherFile
+from src.ish_parser import ish_parser
 from src.WeatherReport import WeatherReport
 
-class WeatherFileTest(unittest.TestCase):
+class ish_parser_test(unittest.TestCase):
 
   ORD_FILE = 'tests/725300.txt'
   AUS_FILE = 'tests/722540-13904-2014'
@@ -13,7 +13,7 @@ class WeatherFileTest(unittest.TestCase):
     ''' test that we can load a weather file from a file '''
     with open(self.ORD_FILE) as fp:
       content = fp.read()
-    wf = WeatherFile()
+    wf = ish_parser()
     wf.loads(content)
     self.assertEquals(len(wf.get_reports()), 4262)
     self.assertEquals(type(wf.get_reports()[10]), WeatherReport)
@@ -24,7 +24,7 @@ class WeatherFileTest(unittest.TestCase):
     from 30 years ago '''
     with open(self.OLDRANDOMFILE) as fp:
       content = fp.read()
-    wf = WeatherFile()
+    wf = ish_parser()
     wf.loads(content)
     self.assertEquals(len(wf.get_reports()), 8760)
     self.assertEquals(type(wf.get_reports()[10]), WeatherReport)
@@ -35,7 +35,7 @@ class WeatherFileTest(unittest.TestCase):
     from 30 years ago '''
     with open(self.OTHER_RANDOM) as fp:
       content = fp.read()
-    wf = WeatherFile()
+    wf = ish_parser()
     wf.loads(content)
     self.assertEquals(len(wf.get_reports()), 2816)
     self.assertEquals(type(wf.get_reports()[10]), WeatherReport)
@@ -44,7 +44,7 @@ class WeatherFileTest(unittest.TestCase):
   def test_other_airport(self):
     with open(self.AUS_FILE) as fp:
       content = fp.read()
-    wf = WeatherFile()
+    wf = ish_parser()
     wf.loads(content)
     self.assertEquals(len(wf.get_reports()), 4237)
     self.assertEquals(type(wf.get_reports()[10]), WeatherReport)
