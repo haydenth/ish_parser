@@ -83,7 +83,21 @@ class ish_report_test(unittest.TestCase):
     #weather.loads(noaa_string)
     #self.assertEquals(weather.datetime.date(), datetime.date(1973, 1, 31))
 
+  def test_Weird_old_report(self):
+    noaa = """0078035480999991943070121004+52467+000950FM-12+004699999V0200501N00671220001CN0040001N9+99999+99999999999ADDAY121999GA1081+999999999GF199999071051004501999999MW1051EQDQ01+000072SCOTCV"""
+    ish = ish_report()
+    ish.loads(noaa)
+    self.assertEquals(ish.air_temperature, 999)
+    self.assertEquals(ish.air_temperature.get_fahrenheit(), 'MISSING')
+
   def test_bad_length(self):
     noaa_string = """1243725300948462014010101087+41995-087934FM-16+0205KORD V0302905N00155004575MN0020125N5-01115-01445999999ADDAA101000231AU110030015AW1715GA1085+004575991GD14991+0045759GE19MSL   +99999+99999GF199999990990004571991991MA1102615100145REMMET10912/31/13 19:08:03 SPECI KORD 010108Z 29003KT 1 1/4SM -SN OVC015 M11/M14 A3030 RMK AO2 P0001 T11111144 $ (KLC)"""
     self.assertRaises(ish_reportException, 
                       ish_report().loads, noaa_string)
+
+  def test_string_that_caused_infinite_recursion(self):
+    noaa = """0059035480999991943070124004+52467+000950FM-12+004699999V0200501N00461220001CN0040001N9+99999+99999999999ADDAY121999GA1001+999999999GF108991081051004501999999MW1051"""
+    ish = ish_report()
+    ish.loads(noaa)
+    self.assertEquals(ish.datetime, datetime.datetime(1943, 07, 2, 0, 0))
+    self.assertEquals(ish.air_temperature.get_fahrenheit(), 'MISSING')

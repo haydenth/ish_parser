@@ -19,3 +19,12 @@ class Temperature(Observation):
       return 'MISSING'
     else:
       return str(self._obs_value)
+
+  def __repr__(self):
+    return self.__str__()
+
+  def __eq__(self, value2):
+    if self._obs_value == value2:
+      return True
+    else:
+      return False

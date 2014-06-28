@@ -7,6 +7,7 @@ class ish_parser_test(unittest.TestCase):
   ORD_FILE = 'tests/725300.txt'
   AUS_FILE = 'tests/722540-13904-2014'
   OTHER_RANDOM = 'tests/010060-99999-2014'
+  RECURSIONBUG = 'tests/035480-99999-1943'
   OLDRANDOMFILE = 'tests/725300-94846-1983'
 
   def test_from_file(self):
@@ -30,6 +31,18 @@ class ish_parser_test(unittest.TestCase):
     self.assertEquals(type(wf.get_reports()[10]), ish_report)
     self.assertEquals(len(wf.get_observations()), 7466)
 
+  def test_file_throwing_problems(self):
+    ''' test a file that was getting stuck in crazy infinite recursion '''
+    with open(self.RECURSIONBUG) as fp:
+      content = fp.read()
+    wf = ish_parser()
+    wf.loads(content)
+    self.assertEquals(len(wf.get_reports()), 4410)
+    self.assertEquals(type(wf.get_reports()[10]), ish_report)
+    
+    one_report = wf.get_reports()[22]
+    self.assertEquals(one_report.air_temperature.get_fahrenheit(), 'MISSING')
+
   def test_random_other_file(self):
     ''' test that we can load another random old file with no problems 
     from 30 years ago '''
@@ -39,7 +52,6 @@ class ish_parser_test(unittest.TestCase):
     wf.loads(content)
     self.assertEquals(len(wf.get_reports()), 2816)
     self.assertEquals(type(wf.get_reports()[10]), ish_report)
-    self.assertEquals(len(wf.get_observations()), 2816)
 
   def test_other_airport(self):
     with open(self.AUS_FILE) as fp:

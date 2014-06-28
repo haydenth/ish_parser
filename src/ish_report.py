@@ -1,7 +1,7 @@
 from Temperature import Temperature
 from Speed import Speed
 from Units import Units
-from datetime import datetime
+from datetime import datetime, timedelta
 from Components import SnowDepthComponent, PrecipitationComponent
 
 
@@ -270,6 +270,7 @@ class ish_report(object):
 
   def loads(self, noaa_string):
     ''' load in a report (or set) from a string '''
+    self.raw = noaa_string
     self.weather_station = noaa_string[4:10]
     self.wban = noaa_string[10:15]
     expected_length = int(noaa_string[0:4]) + self.PREAMBLE_LENGTH
@@ -279,7 +280,16 @@ class ish_report(object):
                                                            actual_length)
       raise ish_reportException(msg)
 
-    self.datetime = datetime.strptime(noaa_string[15:27], '%Y%m%d%H%M')
+    try:
+      self.datetime = datetime.strptime(noaa_string[15:27], '%Y%m%d%H%M')
+    except ValueError:
+      ''' some cases, we get 2400 hours, which is really the next day, so 
+      this is a workaround for those cases '''
+      time = noaa_string[15:27]
+      time = time.replace("2400", "2300")
+      self.datetime = datetime.strptime(time, '%Y%m%d%H%M')
+      self.datetime += timedelta(hours=1)
+
     self.report_type = noaa_string[41:46].strip()
 
     self.latitude = float(noaa_string[28:34]) / self.GEO_SCALE
