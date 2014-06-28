@@ -256,6 +256,10 @@ class ish_report(object):
          'WG1': ['WATER_SURFACE-ICE-HISTORICAL', 11],
          'WJ1': ['WATER-LEVEL-OBSERVATION', 19]}
 
+  def __init__(self):
+    self._additional = {}
+    self._remarks = {}
+
   def __getattr__(self, attribute_name):
     values_to_return = []
     for (addl_code, addl) in self._additional.items():
@@ -320,7 +324,6 @@ class ish_report(object):
     self.sea_level_pressure_quality = noaa_string[104:104]
 
     ''' handle the additional fields '''
-    self._additional = {}
     additional = noaa_string[105:108]
     if additional == 'ADD':
       position = 108
@@ -346,7 +349,8 @@ class ish_report(object):
     # if there is no defined lenght, then read next three chars to get it
     # this only applies to REM types, which have 3 chars for the type, then variable
     if useable_map[1] is False:
-      chars_to_read = string[initial_pos + self.ADDR_CODE_LENGTH:initial_pos + (self.ADDR_CODE_LENGTH * 2)]
+      chars_to_read = string[initial_pos + self.ADDR_CODE_LENGTH:initial_pos + \
+                      (self.ADDR_CODE_LENGTH * 2)]
       chars_to_read = int(chars_to_read)
       initial_pos += (self.ADDR_CODE_LENGTH * 2)
     else:

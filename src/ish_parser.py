@@ -15,12 +15,7 @@ class ish_parser(object):
         continue
 
       report = ish_report()
-      try:
-        report.loads(line)
-      except BaseException, err:
-        ''' print line '''
-        #raise err
-
+      report.loads(line)
       self._reports.append(report)
 
   def get_reports(self):
