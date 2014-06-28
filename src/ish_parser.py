@@ -14,9 +14,13 @@ class ish_parser(object):
       if len(line) < 10:
         continue
 
-      report = ish_report()
-      report.loads(line)
-      self._reports.append(report)
+      try:
+        report = ish_report()
+        report.loads(line)
+        self._reports.append(report)
+      except:
+        ''' don't complain TOO much '''
+        print 'unable to load report'
 
   def get_reports(self):
     ''' return a list of all the reports '''

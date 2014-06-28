@@ -328,11 +328,19 @@ class ish_report(object):
     if additional == 'ADD':
       position = 108
       while position < expected_length:
-        (position, (addl_code, addl_string)) = self._get_component(noaa_string,
-                                                                   position)
-        self._additional[addl_code] = addl_string
+        try:
+          (position, (addl_code, addl_string)) = self._get_component(noaa_string,
+                                                                     position)
+          self._additional[addl_code] = addl_string
+        except ish_reportException, err:
+          ''' this catches when we move to remarks section '''
+          break
 
     ''' handle the remarks section '''
+    #self._get_remarks_component(noaa_string, position)
+
+  def _get_remarks_component(self, string, initial_pos):
+    remarks_code = string[initial_pos:initial_pos + self.ADDR_CODE_LENGTH]
 
   def _get_component(self, string, initial_pos):
     ''' given a string and a position, return both an updated position and

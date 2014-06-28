@@ -61,9 +61,7 @@ class ish_parser_test(unittest.TestCase):
       content = fp.read()
     wf = ish_parser()
     wf.loads(content)
-    self.assertEquals(len(wf.get_reports()), 8581)
-    for rpt in wf.get_reports():
-      print rpt.datetime
+    self.assertEquals(len(wf.get_reports()), 8580)
     one_report = wf.get_reports()[22]
     self.assertEquals(one_report.air_temperature.get_fahrenheit(), 64.4)
 
