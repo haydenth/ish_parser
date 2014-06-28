@@ -101,3 +101,9 @@ class ish_report_test(unittest.TestCase):
     ish.loads(noaa)
     self.assertEquals(ish.datetime, datetime.datetime(1943, 07, 2, 0, 0))
     self.assertEquals(ish.air_temperature.get_fahrenheit(), 'MISSING')
+
+  def test_another_noaa_report(self):
+    noaa = '''0125723030137141973100301003+35167-079017SAO  +0066POB  V0202501N001512200019N0112001N1+02441+01881999999ADDGD13991+0360019GD23991+0750019GF102991999999999999999999MA1101691999999MW1051EQDQ01    003PRSWM1'''
+    ish = ish_report()
+    ish.loads(noaa)
+    self.assertEquals(ish.air_temperature, 26)
