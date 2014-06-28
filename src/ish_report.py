@@ -328,18 +328,22 @@ class ish_report(object):
     if additional == 'ADD':
       position = 108
       while position < expected_length:
-        #try:
         (position, (addl_code, addl_string)) = self._get_component(noaa_string,
                                                                    position)
         self._additional[addl_code] = addl_string
-        #except BaseException, err:
-        #  print err
+
+    ''' handle the remarks section '''
 
   def _get_component(self, string, initial_pos):
     ''' given a string and a position, return both an updated position and
     either a Component Object or a String back to the caller '''
 
     add_code = string[initial_pos:initial_pos + self.ADDR_CODE_LENGTH]
+    
+    if add_code == 'REM':
+      msg = "This is a remarks record"
+      raise ish_reportException(msg)
+
     initial_pos += self.ADDR_CODE_LENGTH 
     try:
       useable_map = self.MAP[add_code]
