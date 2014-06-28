@@ -349,8 +349,9 @@ class ish_report(object):
     add_code = string[initial_pos:initial_pos + self.ADDR_CODE_LENGTH]
     
     if add_code == 'REM':
-      msg = "This is a remarks record"
-      raise ish_reportException(msg)
+      raise ish_reportException("This is a remarks record")
+    if add_code == 'EQD':
+      raise ish_reportException("This is EQD record")
 
     initial_pos += self.ADDR_CODE_LENGTH 
     try:
