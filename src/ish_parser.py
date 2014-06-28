@@ -18,9 +18,9 @@ class ish_parser(object):
         report = ish_report()
         report.loads(line)
         self._reports.append(report)
-      except:
+      except BaseException, exp:
         ''' don't complain TOO much '''
-        print 'unable to load report'
+        print 'unable to load report, error: %s' % exp
 
   def get_reports(self):
     ''' return a list of all the reports '''
