@@ -1,9 +1,11 @@
+import logging
 from Temperature import Temperature
 from Speed import Speed
 from Units import Units
 from datetime import datetime, timedelta
 from Components import SnowDepthComponent, PrecipitationComponent
 
+LOG = logging.getLogger('ish_parser')
 
 class ish_reportException(BaseException):
   ''' handler class for exceptions '''
@@ -186,6 +188,7 @@ class ish_report(object):
          'MW5': ['PRESENT-WEATHER-OBS', 3],
          'MW6': ['PRESENT-WEATHER-OBS', 3],
          'MW7': ['PRESENT-WEATHER-OBS', 3],
+         'MW8': ['PRESENT-WEATHER-OBS', 3],
          'MV1': ['PRESENT-WEATHER-IN-VICINITY', 3],
          'MV2': ['PRESENT-WEATHER-IN-VICINITY', 3],
          'MV3': ['PRESENT-WEATHER-IN-VICINITY', 3],

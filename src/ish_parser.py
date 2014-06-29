@@ -1,5 +1,7 @@
 from ish_report import ish_report
+import logging
 
+LOG = logging.getLogger('ish_parser')
 
 class ish_parser(object):
 
@@ -20,7 +22,7 @@ class ish_parser(object):
         self._reports.append(report)
       except BaseException, exp:
         ''' don't complain TOO much '''
-        print 'unable to load report, error: %s' % exp
+        LOG.warn('unable to load report, error: %s' % exp)
 
   def get_reports(self):
     ''' return a list of all the reports '''
