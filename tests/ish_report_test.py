@@ -110,6 +110,17 @@ class ish_report_test(unittest.TestCase):
     self.assertRaises(ish_reportException, 
                       ish_report().loads, noaa_string)
 
+  def test_old_ord(self):
+    ''' test an old ORD record from 1946 that has a bunch of missing fields '''
+    noaa = """0066725300948461946100109004+41983-087900SAO  +0186ORD  V02099999999992200019N0032001N9+99999+99999999999ADDGA1001+999999999GF100991999999999999999999MA1999999100341MW1111"""
+    ish = ish_report()
+    ish.loads(noaa)
+    self.assertEquals(ish.datetime, datetime.datetime(1946,10,1,9))
+    self.assertEquals(str(ish.air_temperature), 'MISSING')
+    self.assertEquals(str(ish.wind_speed), 'MISSING')
+    self.assertEquals(ish.sky_ceiling, 22000)
+    self.assertEquals(str(ish.sea_level_pressure), 'MISSING')
+
   def test_string_that_caused_infinite_recursion(self):
     noaa = """0059035480999991943070124004+52467+000950FM-12+004699999V0200501N00461220001CN0040001N9+99999+99999999999ADDAY121999GA1001+999999999GF108991081051004501999999MW1051"""
     ish = ish_report()
