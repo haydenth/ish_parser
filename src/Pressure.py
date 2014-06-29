@@ -4,7 +4,7 @@ from Observation import Observation
 class Pressure(Observation):
   ''' Pressure is .. well.. pressure '''
   HECTOPASCALS = 1
-  MISSING = 99999
+  MISSING = [99999, 9999.9]
 
   def __eq__(self, other_value):
     if int(self._obs_value) == int(other_value):
@@ -13,7 +13,7 @@ class Pressure(Observation):
       return False
 
   def __str__(self):
-    if self._obs_value == self.MISSING:
+    if self._obs_value in self.MISSING:
       return 'MISSING'
     else:
       return str(self._obs_value)

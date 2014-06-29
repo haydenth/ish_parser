@@ -42,7 +42,7 @@ class ish_report_test(unittest.TestCase):
     self.assertEquals(weather.sky_ceiling, 579)
     self.assertEquals(weather.air_temperature, -12)
     self.assertEquals(weather.air_temperature.get_fahrenheit(), 10.4)
-    self.assertEquals(weather.sea_level_pressure, 10273)
+    self.assertEquals(weather.sea_level_pressure, 1027.3)
 
   def test_austin(self):
     string = """0190722540139042014042819537+30183-097680FM-15+0151KAUS V0203505N004152200059N0160935N5+03175+00065100325ADDAA101000095GA1005+999999999GD10991+9999999GF100991999999999999999999MA1100445098655REMMET09504/28/14 13:53:02 METAR KAUS 281953Z 35008KT 10SM CLR 32/01 A2966 RMK AO2 SLP032 T03170006 (JP)"""
@@ -127,6 +127,6 @@ class ish_report_test(unittest.TestCase):
     ish.loads(noaa)
     self.assertEquals(ish.datetime, datetime.datetime(1943, 07, 2, 0, 0))
     self.assertEquals(ish.air_temperature.get_fahrenheit(), 'MISSING')
-    self.assertEquals(ish.sea_level_pressure, 99999)
+    self.assertEquals(ish.sea_level_pressure, 9999.9)
     self.assertEquals(str(ish.sea_level_pressure), 'MISSING')
     self.assertEquals(str(ish.sky_ceiling), '22000')

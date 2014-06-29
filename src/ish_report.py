@@ -23,6 +23,7 @@ class ish_report(object):
   RECORD_DELIMITER = "\n"
   PREAMBLE_LENGTH = 105
   TEMPERATURE_SCALE = 10
+  PRESSURE_SCALE = 10.0
   SPEED_SCALE = 10
   ADDR_CODE_LENGTH = 3
   GEO_SCALE = 1000
@@ -330,7 +331,7 @@ class ish_report(object):
                                            noaa_string[92:93])
     self.dew_point_temperature = int(noaa_string[93:98])
     self.dew_point_temperature_quality = noaa_string[98:99]
-    self.sea_level_pressure = Pressure(int(noaa_string[99:104]),
+    self.sea_level_pressure = Pressure(int(noaa_string[99:104])/self.PRESSURE_SCALE,
                                        Pressure.HECTOPASCALS,
                                        noaa_string[104:104])
 
