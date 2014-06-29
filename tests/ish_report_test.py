@@ -102,6 +102,7 @@ class ish_report_test(unittest.TestCase):
     self.assertEquals(str(ish.wind_direction), 'MISSING')
     self.assertEquals(ish.wind_direction, 999)
     self.assertEquals(ish.air_temperature.get_fahrenheit(), 'MISSING')
+    self.assertEquals(str(ish.sea_level_pressure), 'MISSING')
 
   def test_bad_length(self):
     noaa_string = """1243725300948462014010101087+41995-087934FM-16+0205KORD V0302905N00155004575MN0020125N5-01115-01445999999ADDAA101000231AU110030015AW1715GA1085+004575991GD14991+0045759GE19MSL   +99999+99999GF199999990990004571991991MA1102615100145REMMET10912/31/13 19:08:03 SPECI KORD 010108Z 29003KT 1 1/4SM -SN OVC015 M11/M14 A3030 RMK AO2 P0001 T11111144 $ (KLC)"""
@@ -114,3 +115,5 @@ class ish_report_test(unittest.TestCase):
     ish.loads(noaa)
     self.assertEquals(ish.datetime, datetime.datetime(1943, 07, 2, 0, 0))
     self.assertEquals(ish.air_temperature.get_fahrenheit(), 'MISSING')
+    self.assertEquals(ish.sea_level_pressure, 99999)
+    self.assertEquals(str(ish.sea_level_pressure), 'MISSING')

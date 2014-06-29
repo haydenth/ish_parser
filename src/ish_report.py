@@ -2,6 +2,8 @@ import logging
 from Temperature import Temperature
 from Speed import Speed
 from Units import Units
+from Distance import Distance
+from Pressure import Pressure
 from Direction import Direction
 from datetime import datetime, timedelta
 from Components import SnowDepthComponent, PrecipitationComponent
@@ -313,11 +315,13 @@ class ish_report(object):
     self.wind_speed = Speed(int(noaa_string[65:69]) / float(self.SPEED_SCALE),
                             Speed.METERSPERSECOND,
                             noaa_string[69:70])
-    self.sky_ceiling = int(noaa_string[70:75])
-    self.sky_ceiling_quality = noaa_string[75:76]
+    self.sky_ceiling = Distance(int(noaa_string[70:75]),
+                                Distance.METERS,
+                                noaa_string[75:76])
     self.sky_ceiling_determination = noaa_string[76:77]
-    self.visibility_distance = int(noaa_string[78:84])
-    self.visibility_quality = noaa_string[84:85]
+    self.visibility_distance = Distance(int(noaa_string[78:84]),
+                                        Distance.METERS,
+                                        noaa_string[84:85]) 
     self.visibility_variability = noaa_string[85:86]
     self.visibility_variability_quality = noaa_string[86:87]
 
@@ -326,8 +330,9 @@ class ish_report(object):
                                            noaa_string[92:93])
     self.dew_point_temperature = int(noaa_string[93:98])
     self.dew_point_temperature_quality = noaa_string[98:99]
-    self.sea_level_pressure = int(noaa_string[99:104])
-    self.sea_level_pressure_quality = noaa_string[104:104]
+    self.sea_level_pressure = Pressure(int(noaa_string[99:104]),
+                                       Pressure.HECTOPASCALS,
+                                       noaa_string[104:104])
 
     ''' handle the additional fields '''
     additional = noaa_string[105:108]
