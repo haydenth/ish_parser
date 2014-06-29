@@ -6,6 +6,8 @@ http://www1.ncdc.noaa.gov/pub/data/ish/ish-format-document.pdf
 The file itself consists of a:
 * Mandatory section: temperature, location, windspeed
 * Additional Optional Data Elements: Snow Depth, Precipritation, things like that
+* Remarks: Usually a METAR or something crazy
+* Element Quality Section
 
 The files themselves are available on the NOAA's FTP site, stored in an annual set of folders, keyed by weather station id. You can find them at this location:
 http://www1.ncdc.noaa.gov/pub/data/noaa/
