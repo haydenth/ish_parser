@@ -24,6 +24,43 @@ You'll see a row:
 
 The airport code is 725300. 
 
+Installing
+-------------------------------
+The current stable version is available on pip. If you're a python and pip user, you can install the current development version with:
+
+```
+sudo pip install git+https://github.com/haydenth/ish_parser.git
+```
+
+If you'd like to install the current stable version (will most certainly be behind the development version). You can just use the regular pip repository:
+```
+sudo pip install ish_parser
+```
+
+Using
+------------------------------
+Using the module should be pretty straightforward. Here's an example from one of the unittests:
+
+```
+SOMEFILE = 'path/to/a/ish/file'
+
+# read the file
+with open(SOMEFILE) as fp:
+  contents = fp.read()
+fp.close()
+
+wf = ish_parser()
+wf.loads(content)
+
+# get the list of all reports
+reports = wf.get_reports()
+print len(reports)
+
+# look at just one report
+report = reports[23]
+print report.air_temperature.get_fahrenheit()
+```
+
 Developing
 --------------------------------
 If you make some code changes (yay) please write the appropriate tests and run all unittests before sending pull request.  You can do this with
