@@ -3,6 +3,7 @@ from Temperature import Temperature
 from Speed import Speed
 from Units import Units
 from Distance import Distance
+from ReportType import ReportType
 from Pressure import Pressure
 from Direction import Direction
 from datetime import datetime, timedelta
@@ -301,7 +302,7 @@ class ish_report(object):
       self.datetime = datetime.strptime(time, '%Y%m%d%H%M')
       self.datetime += timedelta(hours=1)
 
-    self.report_type = noaa_string[41:46].strip()
+    self.report_type = ReportType(noaa_string[41:46].strip())
 
     self.latitude = float(noaa_string[28:34]) / self.GEO_SCALE
     self.longitude = float(noaa_string[34:41]) / self.GEO_SCALE

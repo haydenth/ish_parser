@@ -19,7 +19,7 @@ class ish_report_test(unittest.TestCase):
     self.assertEquals(len(weather.precipitation), 1)
     precip = weather.precipitation[0]
     self.assertEquals(precip['hours'], 1)
-    self.assertEquals(precip['depth'], 0)
+    self.assertEquals(precip['depth'], 0.2)
 
   def test_report_with_big_quality_section(self):
     noaa = """0177330580999991970050200004+52050+033950FM-12+999999999V0201401N00621220001CN0190001N9+01501+00611100651ADDAA199000091AY121999GA1021+003009079GA2999+999999099GF199999999999999999001001MD1710041+9999EQDQ01+000002SCOTCVQ02+000002SCOTLCQ03+000002SCOLCGQ04+000992SCOLCBQ05    003SCCGA2"""
@@ -56,6 +56,7 @@ class ish_report_test(unittest.TestCase):
     weather.loads(string)
     self.assertEquals(weather.air_temperature.get_fahrenheit(), 44.6)
     self.assertEquals(weather.wind_speed, 6.7)
+    self.assertEquals(weather.report_type, 'METAR Aviation routine weather report')
     self.assertEquals(weather.wind_direction, 230)
 
   def test_snowfall(self):
@@ -72,6 +73,9 @@ class ish_report_test(unittest.TestCase):
     weather = ish_report()
     weather.loads(noaa_string)
     self.assertEquals(weather.datetime.date(), datetime.date(2008, 02, 02))
+    precip = weather.precipitation[0]
+    self.assertEquals(precip['hours'], 24)
+    self.assertEquals(precip['depth'], 3.6) 
 
   def test_another_random_string(self):
     noaa_string = """041572530094846198002081200C+41983-087900SAO  +0201ORD  V02099959000050076249N0128005N1-00565-00785103405ADDAA101000095AG12000AJ100089199999999AY121999GA1999+007624064GD14085+9999999GD20995+9999999GD30995+9999999GD40995+9999999GF108085081051008001999999KA1999M-00171KA2999N-00561MA1103321100815MD1510001+9999MW1021WG199190199999EQDQ01    003PRSWM1N01 00000JPWTH 1QNNE11 1 00610E11 1 00099E11 1 00099E11 1 00099G11 1 00025H11 1 15025K11 1 00018L11 1 00800M11 1 29770N11 1 00000Q11 1 10340S11 1 00022V11 1 01010X11 1 00000"""
