@@ -1,6 +1,9 @@
 import unittest
+import logging
 from src.ish_parser import ish_parser
 from src.ish_report import ish_report
+
+LOG = logging.basicConfig(level=logging.ERROR)
 
 class ish_parser_test(unittest.TestCase):
 

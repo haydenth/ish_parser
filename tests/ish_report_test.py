@@ -38,6 +38,7 @@ class ish_report_test(unittest.TestCase):
     self.assertEquals(weather.elevation, 205)
     self.assertEquals(weather.wind_speed, 1.5)
     self.assertEquals(weather.wind_speed.get_miles(), 3.3554)
+    self.assertEquals(weather.wind_direction, 250)
     self.assertEquals(weather.sky_ceiling, 579)
     self.assertEquals(weather.air_temperature, -12)
     self.assertEquals(weather.air_temperature.get_fahrenheit(), 10.4)
@@ -55,11 +56,13 @@ class ish_report_test(unittest.TestCase):
     weather.loads(string)
     self.assertEquals(weather.air_temperature.get_fahrenheit(), 44.6)
     self.assertEquals(weather.wind_speed, 6.7)
+    self.assertEquals(weather.wind_direction, 230)
 
   def test_snowfall(self):
     string = """0479725300948462014010105517+41995-087934FM-15+0205KORD V0300105N00465007015MN0028165N5-01225-01565102655ADDAA101001095AA206005691AJ100089500007694AU110030015AW1715GA1075+007015991GA2075+011285991GA3085+016765991GD13991+0070159GD23991+0112859GD34991+0167659GE19MSL   +99999+99999GF199999990990007011991991KA1060M-01111KA2060N-01221KA3240M-01111KA4240N-01671MA1102515100045MD1690154+9999REMMET17012/31/13 23:51:03 METAR KORD 010551Z 01009KT 1 3/4SM -SN BKN023 BKN037 OVC055 M12/M16 A3027 RMK AO2 SLP265 4/003 P0005 60022 T11221156 11111 21122 411111167 56015 $ (SMN)EQDQ01  00558PRCP06"""
     weather = ish_report()
     weather.loads(string)
+    self.assertEquals(weather.wind_direction, 10)
     self.assertEquals(weather.datetime.date(), datetime.date(2014, 01, 01))
     self.assertEquals(weather.snow_depth, [{'depth': 8, 'quality': '5', 'condition': '9'}])
     self.assertEquals(len(weather.precipitation), 2)
@@ -87,13 +90,17 @@ class ish_report_test(unittest.TestCase):
     noaa_string = """033072530094846197301312200C+41983-087900SAO  +0201ORD  V0201405N00525004574MN0096005N1+00395+00115101305ADDAA101000095GD14995+0045099GD20995+9999999GD30995+9999999GD40995+9999999GF108085999999999999999999MA1101251098815MW1041MW2051MW3445REMAWY012VA?ORD C1/78MET005?1/30EQDN01 07200JPWTH 1QNNE11 1 00699E11 1 00099E11 1 00099E11 1 00099G11 1 00015K11 1 00034L11 1 00600M11 1 29180N11 1 07200Q11 1 10130S11 1 00039V11 1 01010X11 1 14010"""
     weather = ish_report()
     weather.loads(noaa_string)
+    self.assertEquals(weather.wind_direction, 140)
     self.assertEquals(weather.datetime.date(), datetime.date(1973, 1, 31))
 
   def test_Weird_old_report(self):
-    noaa = """0078035480999991943070121004+52467+000950FM-12+004699999V0200501N00671220001CN0040001N9+99999+99999999999ADDAY121999GA1081+999999999GF199999071051004501999999MW1051EQDQ01+000072SCOTCV"""
+    noaa = """0078035480999991943070121004+52467+000950FM-12+004699999V0209991N00671220001CN0040001N9+99999+99999999999ADDAY121999GA1081+999999999GF199999071051004501999999MW1051EQDQ01+000072SCOTCV"""
     ish = ish_report()
     ish.loads(noaa)
     self.assertEquals(ish.air_temperature, 999)
+    self.assertEquals(ish.wind_speed, 6.7)
+    self.assertEquals(str(ish.wind_direction), 'MISSING')
+    self.assertEquals(ish.wind_direction, 999)
     self.assertEquals(ish.air_temperature.get_fahrenheit(), 'MISSING')
 
   def test_bad_length(self):
