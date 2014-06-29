@@ -59,6 +59,10 @@ print len(reports)
 # look at just one report
 report = reports[23]
 print report.air_temperature.get_fahrenheit()
+print report.air_temperature
+
+# see all the other options for this report
+print dir(report)
 ```
 
 Developing
