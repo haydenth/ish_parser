@@ -94,13 +94,14 @@ class ish_report_test(unittest.TestCase):
     self.assertEquals(weather.datetime.date(), datetime.date(1973, 1, 31))
 
   def test_Weird_old_report(self):
-    noaa = """0078035480999991943070121004+52467+000950FM-12+004699999V0209991N00671220001CN0040001N9+99999+99999999999ADDAY121999GA1081+999999999GF199999071051004501999999MW1051EQDQ01+000072SCOTCV"""
+    noaa = """0078035480999991943070121004+52467+000950FM-12+004699999V0209991N00671999991CN0040001N9+99999+99999999999ADDAY121999GA1081+999999999GF199999071051004501999999MW1051EQDQ01+000072SCOTCV"""
     ish = ish_report()
     ish.loads(noaa)
     self.assertEquals(ish.air_temperature, 999)
     self.assertEquals(ish.wind_speed, 6.7)
     self.assertEquals(str(ish.wind_direction), 'MISSING')
     self.assertEquals(ish.wind_direction, 999)
+    self.assertEquals(str(ish.sky_ceiling), 'MISSING')
     self.assertEquals(ish.air_temperature.get_fahrenheit(), 'MISSING')
     self.assertEquals(str(ish.sea_level_pressure), 'MISSING')
 
@@ -117,3 +118,4 @@ class ish_report_test(unittest.TestCase):
     self.assertEquals(ish.air_temperature.get_fahrenheit(), 'MISSING')
     self.assertEquals(ish.sea_level_pressure, 99999)
     self.assertEquals(str(ish.sea_level_pressure), 'MISSING')
+    self.assertEquals(str(ish.sky_ceiling), '22000')
