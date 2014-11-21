@@ -1,9 +1,11 @@
-from ish_report import ish_report
 import logging
-
-LOG = logging.getLogger('ish_parser')
+from ish_report import ish_report
 
 class ish_parser(object):
+  ''' primary object for parsing ish files, this class is
+  primarily responsible for opening a file, splitting it
+  and handing off each line to ish_report, which process
+  the specific ish report '''
 
   OBS_TYPES = ['FM-12', 'FM-15', 'SAO']
 
@@ -22,7 +24,7 @@ class ish_parser(object):
         self._reports.append(report)
       except BaseException, exp:
         ''' don't complain TOO much '''
-        LOG.warn('unable to load report, error: %s' % exp)
+        logging.warn('unable to load report, error: %s' % exp)
 
   def get_reports(self):
     ''' return a list of all the reports '''

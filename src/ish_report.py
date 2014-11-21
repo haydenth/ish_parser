@@ -8,6 +8,7 @@ from Pressure import Pressure
 from Direction import Direction
 from datetime import datetime, timedelta
 from Components import SnowDepthComponent, PrecipitationComponent
+import logging
 
 LOG = logging.getLogger('ish_parser')
 
