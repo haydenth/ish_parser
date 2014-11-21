@@ -28,6 +28,7 @@ class ish_report_test(unittest.TestCase):
     self.assertEquals(weather.present_weather, 
                       [{'descriptor': '', 'intensity': 'Light', 'precipitation': 'Snow'}])
     self.assertEquals(weather.precipitation, [{'depth': 0.5, 'hours': 1}])
+    print weather.formatted()
 
   def test_report_with_big_quality_section(self):
     noaa = """0177330580999991970050200004+52050+033950FM-12+999999999V0201401N00621220001CN0190001N9+01501+00611100651ADDAA199000091AY121999GA1021+003009079GA2999+999999099GF199999999999999999001001MD1710041+9999EQDQ01+000002SCOTCVQ02+000002SCOTLCQ03+000002SCOLCGQ04+000992SCOLCBQ05    003SCCGA2"""

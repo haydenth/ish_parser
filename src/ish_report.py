@@ -280,6 +280,13 @@ class ish_report(object):
 
   def formatted(self):
     ''' print a nicely formatted output of this report '''
+    try:
+      present_weather = '%s %s' % (self.present_weather[0]['intensity'],
+                                   self.present_weather[0]['precipitation'])
+      
+    except:
+      present_weather = 'MISSING'
+
     return """
 Weather Station: %s (%s, %s)
 Elevation: %s m
@@ -287,10 +294,12 @@ Time: %s UTC
 Air Temperature: %s C (%s F)
 Wind Speed: %s m/s (%s mph)
 Wind Direction: %s
+Present Weather Obs: %s
     """ % (self.weather_station, self.latitude, self.longitude,
            self.elevation, self.datetime, self.air_temperature,
            self.air_temperature.get_fahrenheit(), self.wind_speed,
-           self.wind_speed.get_miles(), self.wind_direction)
+           self.wind_speed.get_miles(), self.wind_direction,
+           present_weather)
 
   def loads(self, noaa_string):
     ''' load in a report (or set) from a string '''
