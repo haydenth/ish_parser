@@ -281,6 +281,20 @@ class ish_report(object):
     if len(values_to_return) > 0:
       return values_to_return
 
+  def formatted(self):
+    ''' print a nicely formatted output of this report '''
+    return """
+Weather Station: %s (%s, %s)
+Elevation: %s m
+Time: %s UTC
+Air Temperature: %s C (%s F)
+Wind Speed: %s m/s (%s mph)
+Wind Direction: %s
+    """ % (self.weather_station, self.latitude, self.longitude,
+           self.elevation, self.datetime, self.air_temperature,
+           self.air_temperature.get_fahrenheit(), self.wind_speed,
+           self.wind_speed.get_miles(), self.wind_direction)
+
   def loads(self, noaa_string):
     ''' load in a report (or set) from a string '''
     self.raw = noaa_string
@@ -352,6 +366,7 @@ class ish_report(object):
 
     ''' handle the remarks section '''
     #self._get_remarks_component(noaa_string, position)
+    return self
 
   def _get_remarks_component(self, string, initial_pos):
     remarks_code = string[initial_pos:initial_pos + self.ADDR_CODE_LENGTH]
