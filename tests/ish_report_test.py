@@ -21,6 +21,14 @@ class ish_report_test(unittest.TestCase):
     self.assertEquals(precip['hours'], 1)
     self.assertEquals(precip['depth'], 0.2)
 
+  def test_present_weather(self):
+    noaa_string = """0281725300948462014010508237+41995-087934FM-16+0205KORD V0303505N00625005795MN0020125N5-00565-00835999999ADDAA101000531AU110030015AW1715GA1025+003355991GA2085+005795991GD11991+0033559GD24991+0057959GE19MSL   +99999+99999GF199999990990003351991991MA1101665099215REMMET11601/05/14 02:23:02 SPECI KORD 050823Z 35012KT 1 1/4SM -SN FEW011 OVC019 M06/M08 A3002 RMK AO2 P0002 T10561083 $ (MJF)"""
+    weather = ish_report()
+    weather.loads(noaa_string)
+    self.assertEquals(weather.present_weather, 
+                      [{'descriptor': '', 'intensity': 'Light', 'precipitation': 'Snow'}])
+    self.assertEquals(weather.precipitation, [{'depth': 0.5, 'hours': 1}])
+
   def test_report_with_big_quality_section(self):
     noaa = """0177330580999991970050200004+52050+033950FM-12+999999999V0201401N00621220001CN0190001N9+01501+00611100651ADDAA199000091AY121999GA1021+003009079GA2999+999999099GF199999999999999999001001MD1710041+9999EQDQ01+000002SCOTCVQ02+000002SCOTLCQ03+000002SCOLCGQ04+000992SCOLCBQ05    003SCCGA2"""
     weather = ish_report()

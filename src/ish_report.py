@@ -7,10 +7,7 @@ from ReportType import ReportType
 from Pressure import Pressure
 from Direction import Direction
 from datetime import datetime, timedelta
-from Components import SnowDepthComponent, PrecipitationComponent
-import logging
-
-LOG = logging.getLogger('ish_parser')
+from Components import SnowDepthComponent, PrecipitationComponent, PresentWeatherComponent
 
 class ish_reportException(BaseException):
   ''' handler class for exceptions '''
@@ -67,15 +64,15 @@ class ish_report(object):
          'AP2': ['15MIN-LIQUID-PRECIP', 6],
          'AP3': ['15MIN-LIQUID-PRECIP', 6],
          'AP4': ['15MIN-LIQUID-PRECIP', 6],
-         'AU1': ['WEATHER-OCCURANCE', 8],
-         'AU2': ['WEATHER-OCCURANCE', 8],
-         'AU3': ['WEATHER-OCCURANCE', 8],
-         'AU4': ['WEATHER-OCCURANCE', 8],
-         'AU5': ['WEATHER-OCCURANCE', 8],
-         'AU6': ['WEATHER-OCCURANCE', 8],
-         'AU7': ['WEATHER-OCCURANCE', 8],
-         'AU8': ['WEATHER-OCCURANCE', 8],
-         'AU9': ['WEATHER-OCCURANCE', 8],
+         'AU1': ['WEATHER-OCCURANCE', 8, PresentWeatherComponent],
+         'AU2': ['WEATHER-OCCURANCE', 8, PresentWeatherComponent],
+         'AU3': ['WEATHER-OCCURANCE', 8, PresentWeatherComponent],
+         'AU4': ['WEATHER-OCCURANCE', 8, PresentWeatherComponent],
+         'AU5': ['WEATHER-OCCURANCE', 8, PresentWeatherComponent],
+         'AU6': ['WEATHER-OCCURANCE', 8, PresentWeatherComponent],
+         'AU7': ['WEATHER-OCCURANCE', 8, PresentWeatherComponent],
+         'AU8': ['WEATHER-OCCURANCE', 8, PresentWeatherComponent],
+         'AU9': ['WEATHER-OCCURANCE', 8, PresentWeatherComponent],
          'AW1': ['PRESENT-WEATHER-OBSERVATION', 3],
          'AW2': ['PRESENT-WEATHER-OBSERVATION', 3],
          'AW3': ['PRESENT-WEATHER-OBSERVATION', 3],
@@ -276,7 +273,7 @@ class ish_report(object):
         addl_value = getattr(addl, attribute_name)
         values_to_return.append(addl_value)
       except:
-        ''' no attribute found '''
+        pass
 
     if len(values_to_return) > 0:
       return values_to_return
@@ -374,7 +371,6 @@ Wind Direction: %s
   def _get_component(self, string, initial_pos):
     ''' given a string and a position, return both an updated position and
     either a Component Object or a String back to the caller '''
-
     add_code = string[initial_pos:initial_pos + self.ADDR_CODE_LENGTH]
     
     if add_code == 'REM':
@@ -404,7 +400,7 @@ Wind Direction: %s
     try:
       object_value = useable_map[2]()
       object_value.loads(string_value)
-    except:
+    except IndexError, err:
       object_value = string_value
 
     return (new_position, [add_code, object_value])
