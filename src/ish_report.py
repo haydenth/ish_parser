@@ -102,7 +102,7 @@ class ish_report(object):
          'CN1': ['HOURLY-BATTERY-VOLTAGE', 18],
          'CN2': ['HOURLY-DIAGNOSTIC', 18],
          'CN3': ['SECONDARY-HOURLY-DIAGNOSTIC', 16],
-         'CN4': ['SECONDARY-HOURLY-DIAGNOSTIC', 16],
+         'CN4': ['SECONDARY-HOURLY-DIAGNOSTIC', 19],
          'CO1': ['US-NETWORK-METADATA', 5],
          'CO2': ['US-COOP-NETWORK-TIME-OFFSET', 8],
          'CO3': ['US-COOP-NETWORK-TIME-OFFSET', 8],
@@ -394,7 +394,7 @@ Present Weather Obs: %s
     try:
       useable_map = self.MAP[add_code]
     except:
-      raise BaseException("Cannot find code %s in string %s (%d)" % (add_code, string, initial_pos))
+      raise BaseException("Cannot find code %s in string %s (%d)." % (add_code, string, initial_pos))
 
     # if there is no defined lenght, then read next three chars to get it
     # this only applies to REM types, which have 3 chars for the type, then variable
