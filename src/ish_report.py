@@ -21,7 +21,7 @@ class ish_report(object):
 
   RECORD_DELIMITER = "\n"
   PREAMBLE_LENGTH = 105
-  TEMPERATURE_SCALE = 10
+  TEMPERATURE_SCALE = 10.0
   PRESSURE_SCALE = 10.0
   SPEED_SCALE = 10
   ADDR_CODE_LENGTH = 3
@@ -78,6 +78,7 @@ class ish_report(object):
          'AW3': ['PRESENT-WEATHER-OBSERVATION', 3],
          'AW4': ['PRESENT-WEATHER-OBSERVATION', 3],
          'AW5': ['PRESENT-WEATHER-OBSERVATION', 3],
+         'AW6': ['PRESENT-WEATHER-OBSERVATION', 3],
          'AX1': ['PAST-WEATHER-OBSERVATION', 6],
          'AX2': ['PAST-WEATHER-OBSERVATION', 6],
          'AX3': ['PAST-WEATHER-OBSERVATION', 6],
@@ -354,8 +355,10 @@ Present Weather Obs: %s
     self.air_temperature = Temperature(int(noaa_string[87:92]) / self.TEMPERATURE_SCALE,
                                            Units.CELSIUS,
                                            noaa_string[92:93])
-    self.dew_point_temperature = int(noaa_string[93:98])
-    self.dew_point_temperature_quality = noaa_string[98:99]
+    self.dew_point = Temperature(int(noaa_string[93:98]) / self.TEMPERATURE_SCALE,
+                                 Units.CELSIUS,
+                                 noaa_string[98:99])
+
     self.sea_level_pressure = Pressure(int(noaa_string[99:104])/self.PRESSURE_SCALE,
                                        Pressure.HECTOPASCALS,
                                        noaa_string[104:104])
