@@ -7,7 +7,7 @@ class Distance(Observation):
   MILLIMETERS = 1
   METERS = 2
   INCHES = 2
-  MISSING = [999, 99999]
+  MISSING = [999, 99999, 999999]
 
   def get_inches(self):
     ''' convert the measurement to inches '''
