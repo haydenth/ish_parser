@@ -11,6 +11,8 @@ class ish_report_test(unittest.TestCase):
     weather.loads(noaa_string)
     self.assertEquals(weather.air_temperature.get_fahrenheit(), 61.0)
     self.assertEquals(weather.dew_point.get_fahrenheit(), 51.1)
+    self.assertEquals(weather.sea_level_pressure.get_inches(), 29.96)
+    self.assertEquals(weather.humidity, 70)
 
   def test_single_reading(self):
     noaa_string = """0243725300948462014010101087+41995-087934FM-16+0205KORD V0302905N00155004575MN0020125N5-01115-01445999999ADDAA101000231AU110030015AW1715GA1085+004575991GD14991+0045759GE19MSL   +99999+99999GF199999990990004571991991MA1102615100145REMMET10912/31/13 19:08:03 SPECI KORD 010108Z 29003KT 1 1/4SM -SN OVC015 M11/M14 A3030 RMK AO2 P0001 T11111144 $ (KLC)"""
@@ -24,6 +26,8 @@ class ish_report_test(unittest.TestCase):
     self.assertEquals(weather.longitude, -87.934)
     self.assertEquals(weather.visibility_distance, 2012)
     self.assertEquals(weather.air_temperature, -11.1)
+    self.assertEquals(weather.dew_point, -14.4)
+    self.assertEquals(weather.humidity, 77)
     self.assertEquals(len(weather.precipitation), 1)
     precip = weather.precipitation[0]
     self.assertEquals(precip['hours'], 1)

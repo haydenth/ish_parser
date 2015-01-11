@@ -17,3 +17,6 @@ class Pressure(Observation):
       return 'MISSING'
     else:
       return str(self._obs_value)
+
+  def get_inches(self):
+    return round(self._obs_value * 0.02953, 2)

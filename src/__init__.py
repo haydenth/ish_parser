@@ -9,3 +9,4 @@ from ish_parser import ish_parser
 from Units import Units
 from Components import SnowDepthComponent, PrecipitationComponent
 from ReportType import ReportType
+from Humidity import Humidity

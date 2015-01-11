@@ -3,6 +3,7 @@ from Temperature import Temperature
 from Speed import Speed
 from Units import Units
 from Distance import Distance
+from Humidity import Humidity
 from ReportType import ReportType
 from Pressure import Pressure
 from Direction import Direction
@@ -359,6 +360,7 @@ Present Weather Obs: %s
                                  Units.CELSIUS,
                                  noaa_string[98:99])
 
+    self.humidity = Humidity(str(self.air_temperature), str(self.dew_point))
     self.sea_level_pressure = Pressure(int(noaa_string[99:104])/self.PRESSURE_SCALE,
                                        Pressure.HECTOPASCALS,
                                        noaa_string[104:104])
