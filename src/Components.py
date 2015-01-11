@@ -9,7 +9,7 @@ class PresentWeatherComponent(BaseComponent):
                '3': 'Heavy', '4': 'Vicinity', '5': 'MISSING'}
   DESCRIPTOR = {'0': '', '1': 'Shallow', '2': 'Partial',
                 '3': 'Patches', '4': 'Low Drifting', '5': 'Blowing',
-                '6': 'Showers', '7': 'Thunderstorm', '8': 'Ferezing',
+                '6': 'Showers', '7': 'Thunderstorm', '8': 'Freezing',
                 '9': 'MISSING'}
   PRECIP = {'00': 'No Precip', '01': 'Drizzle', '02': 'Rain',
             '03': 'Snow', '04': 'Snow Grains', '05': 'Ice Crystals',
