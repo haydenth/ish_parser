@@ -4,6 +4,12 @@ from src.ish_report import ish_report, ish_reportException
 
 class ish_report_test(unittest.TestCase):
 
+  def test_kord_single_day(self):
+    noaa_string = """0296725300948462015010900397+41995-087934FM-16+0205KORD V0202205N00725006105MN0032195N5-01065-01395999999ADDAA101000021AU110030015AU225030015AW1275AW2715GA1085+006105999GD14991+0061059GE19MSL   +99999+99999GF199999999999006101999999MA1100955098525OC101135OD149901491220REMMET12301/08/15 18:39:01 SPECI KORD 090039Z 22014G22KT 2SM -SN BLSN OVC020 M11/M14 A2981 RMK AO2 PK WND 22029/2356 P0000 T11061139"""
+    weather = ish_report()
+    weather.loads(noaa_string)
+    print weather.formatted()   
+
   def test_kync_single_date(self):
     # 1:51 AM,61.0,51.1,70,29.97,10.0,WNW,4.6,-,N/A,,Clear,290,2014-09-18 05:51:00
     noaa_string = """0185725053947282014091806517+40779-073969FM-15+0048KNYC V0309999V002152200059N0160935N5+01615+01065101455ADDAA101000095GA1005+999999999GD10991+9999999GF100991999999999999999999MA1101565100985REMMET09009/18/14 01:51:02 METAR KNYC 180651Z VRB04KT 10SM CLR 16/11 A2999 RMK AO2 SLP145 T01610106"""
@@ -59,7 +65,7 @@ class ish_report_test(unittest.TestCase):
     weather = ish_report()
     weather.loads(noaa_string)
     self.assertEquals(weather.present_weather, 
-                      [{'descriptor': '', 'intensity': 'Light', 'precipitation': 'Snow'}])
+                      ['Light Snow'])
     self.assertEquals(weather.precipitation, [{'depth': 0.5, 'hours': 1}])
 
   def test_report_with_big_quality_section(self):

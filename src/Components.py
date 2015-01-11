@@ -17,9 +17,17 @@ class PresentWeatherComponent(BaseComponent):
             '09': 'Unknown Precip'}
 
   def loads(self, string):
-    self.present_weather = {'intensity': self.INTENSITY[string[0:1]],
-                            'descriptor': self.DESCRIPTOR[string[1:2]],
-                            'precipitation': self.PRECIP[string[2:4]]}
+    self.present_weather_array = {'intensity': self.INTENSITY[string[0:1]],
+                                  'descriptor': self.DESCRIPTOR[string[1:2]],
+                                  'precipitation': self.PRECIP[string[2:4]]}
+    present = self.present_weather_array
+    try:
+      self.present_weather = "%s %s %s" % (present['intensity'],
+                                           present['descriptor'],
+                                           present['precipitation'])
+      self.present_weather = self.present_weather.replace("  ", " ")
+    except:
+      self.present_weather = ""
 
 class PrecipitationComponent(BaseComponent):
   ''' handle AA1,2,3,4 precip types '''
