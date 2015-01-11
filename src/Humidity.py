@@ -14,7 +14,7 @@ class Humidity(object):
       self.humidity = "MISSING"
 
   def __str__(self):
-    return self.humidity
+    return str(self.humidity)
 
   def __eq__(self, other_value):
     if self.humidity == other_value:
