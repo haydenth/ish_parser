@@ -332,7 +332,6 @@ Present Weather Obs: %s
     self.wind_direction = Direction(noaa_string[60:63],
                                     Direction.RADIANS,
                                     noaa_string[63:64])
-    #self.wind_observation_direction_quality = noaa_string[63:64]
     self.wind_observation_direction_type = noaa_string[64:64]
     self.wind_speed = Speed(int(noaa_string[65:69]) / float(self.SPEED_SCALE),
                             Speed.METERSPERSECOND,
