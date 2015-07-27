@@ -17,7 +17,7 @@ This python module is an attempt to be able to parse it as best as possible.
 Simple Example
 --------------------------------
 Suppose you want to get all the hourly weather observations for a single airport, say O'Hare (ORD) for 2014. First, you need to figure out the weather station ID for O'hare. You can find it in this file:
-http://www1.ncdc.noaa.gov/pub/data/noaa/ish-history.txt
+ftp://ftp.ncdc.noaa.gov/pub/data/noaa/isd-history.txt
 
 You'll see a row:
 725300 94846 CHICAGO/O HARE ARPT           US US IL KORD  +41995 -087934 +02054    19461001 20140313
