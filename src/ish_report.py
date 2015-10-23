@@ -371,12 +371,34 @@ Present Weather Obs: %s
           ''' this catches when we move to remarks section '''
           break
 
-    ''' handle the remarks section '''
-    #self._get_remarks_component(noaa_string, position)
+    ''' handle the remarks section if it exists '''
+    try:
+      position = noaa_string.index('REM', 108) 
+      self._get_remarks_component(noaa_string, position)
+    except (ish_reportException, ValueError), err:
+      ''' this catches when we move to EQD section '''
+
     return self
 
   def _get_remarks_component(self, string, initial_pos):
+    ''' Parse the remarks into the _remarks dict '''
     remarks_code = string[initial_pos:initial_pos + self.ADDR_CODE_LENGTH]
+    if remarks_code != 'REM':
+      raise ish_reportException("Parsing remarks. Expected REM but got %s." % (remarks_code,))
+
+    expected_length = int(string[0:4]) + self.PREAMBLE_LENGTH
+    position = initial_pos + self.ADDR_CODE_LENGTH
+    while position < expected_length:
+      key = string[position:position + self.ADDR_CODE_LENGTH]
+      if key == 'EQD':
+        break
+      chars_to_read = string[position + self.ADDR_CODE_LENGTH:position + \
+                      (self.ADDR_CODE_LENGTH * 2)]
+      chars_to_read = int(chars_to_read)
+      position += (self.ADDR_CODE_LENGTH * 2)
+      string_value = string[position:position + chars_to_read]
+      self._remarks[key] = string_value
+      position += chars_to_read
 
   def _get_component(self, string, initial_pos):
     ''' given a string and a position, return both an updated position and
@@ -394,7 +416,7 @@ Present Weather Obs: %s
     except:
       raise BaseException("Cannot find code %s in string %s (%d)." % (add_code, string, initial_pos))
 
-    # if there is no defined lenght, then read next three chars to get it
+    # if there is no defined length, then read next three chars to get it
     # this only applies to REM types, which have 3 chars for the type, then variable
     if useable_map[1] is False:
       chars_to_read = string[initial_pos + self.ADDR_CODE_LENGTH:initial_pos + \
@@ -414,6 +436,9 @@ Present Weather Obs: %s
       object_value = string_value
 
     return (new_position, [add_code, object_value])
+
+  def remarks(self):
+    return self._remarks
 
   def get_additional_field(self, addl_code):
     ''' Given an additional field code (AA1, AJ1..), return whatever match
