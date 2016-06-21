@@ -75,7 +75,7 @@ SOMEFILE = 'path/to/a/ish/file'
 
 # read the file
 with open(SOMEFILE) as fp:
-  contents = fp.read()
+  content = fp.read()
 fp.close()
 
 wf = ish_parser()
