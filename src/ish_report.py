@@ -1,4 +1,6 @@
 import logging
+import pytz
+
 from Temperature import Temperature
 from Speed import Speed
 from Units import Units
@@ -321,6 +323,8 @@ Present Weather Obs: %s
       time = time.replace("2400", "2300")
       self.datetime = datetime.strptime(time, '%Y%m%d%H%M')
       self.datetime += timedelta(hours=1)
+
+    self.datetime = self.datetime.replace(tzinfo=pytz.UTC)
 
     self.report_type = ReportType(noaa_string[41:46].strip())
 
