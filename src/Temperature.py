@@ -1,4 +1,4 @@
-from Observation import Observation
+from .Observation import Observation
 
 
 class Temperature(Observation):

@@ -1,4 +1,4 @@
-from Observation import Observation
+from .Observation import Observation
 
 class Speed(Observation):
   ''' observation of a temperature, which we can convert

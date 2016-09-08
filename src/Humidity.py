@@ -1,5 +1,6 @@
 import math
-from Observation import Observation
+
+from .Observation import Observation
 
 
 class Humidity(object):
