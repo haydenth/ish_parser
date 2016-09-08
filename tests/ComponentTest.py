@@ -7,4 +7,4 @@ class SnowDepthComponentTest(unittest.TestCase):
     simple_string = '00089500007694'
     sd = SnowDepthComponent()
     sd.loads(simple_string)
-    self.assertEquals(sd.snow_depth, {'depth': 8, 'quality': '5', 'condition': '9'})
+    self.assertEqual(sd.snow_depth, {'depth': 8, 'quality': '5', 'condition': '9'})

@@ -1,5 +1,5 @@
 import logging
-from ish_report import ish_report
+from .ish_report import ish_report
 
 class ish_parser(object):
   ''' primary object for parsing ish files, this class is
@@ -22,9 +22,9 @@ class ish_parser(object):
         report = ish_report()
         report.loads(line)
         self._reports.append(report)
-      except BaseException, exp:
+      except BaseException as exp:
         ''' don't complain TOO much '''
-        logging.warn('unable to load report, error: %s' % exp)
+        logging.warning('unable to load report, error: %s' % exp)
 
   def get_reports(self):
     ''' return a list of all the reports '''

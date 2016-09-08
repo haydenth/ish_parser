@@ -1,16 +1,16 @@
+from datetime import datetime, timedelta
 import logging
 import pytz
 
-from Temperature import Temperature
-from Speed import Speed
-from Units import Units
-from Distance import Distance
-from Humidity import Humidity
-from ReportType import ReportType
-from Pressure import Pressure
-from Direction import Direction
-from datetime import datetime, timedelta
-from Components import SnowDepthComponent, PrecipitationComponent, PresentWeatherComponent
+from .Temperature import Temperature
+from .Speed import Speed
+from .Units import Units
+from .Distance import Distance
+from .Humidity import Humidity
+from .ReportType import ReportType
+from .Pressure import Pressure
+from .Direction import Direction
+from .Components import SnowDepthComponent, PrecipitationComponent, PresentWeatherComponent
 
 class ish_reportException(BaseException):
   ''' handler class for exceptions '''
@@ -371,7 +371,7 @@ Present Weather Obs: %s
           (position, (addl_code, addl_string)) = self._get_component(noaa_string,
                                                                      position)
           self._additional[addl_code] = addl_string
-        except ish_reportException, err:
+        except ish_reportException as err:
           ''' this catches when we move to remarks section '''
           break
 
@@ -379,7 +379,7 @@ Present Weather Obs: %s
     try:
       position = noaa_string.index('REM', 108) 
       self._get_remarks_component(noaa_string, position)
-    except (ish_reportException, ValueError), err:
+    except (ish_reportException, ValueError) as err:
       ''' this catches when we move to EQD section '''
 
     return self
@@ -436,7 +436,7 @@ Present Weather Obs: %s
     try:
       object_value = useable_map[2]()
       object_value.loads(string_value)
-    except IndexError, err:
+    except IndexError as err:
       object_value = string_value
 
     return (new_position, [add_code, object_value])
