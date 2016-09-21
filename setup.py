@@ -6,5 +6,6 @@ setup(name='ish_parser',
       description='Parser for NOAA ISH (integrated surface hourly) reports',
       author='thayden',
       url='https://github.com/haydenth/ish_parser',
-      package_dir={'': 'src'},
+      packages = ['ish_parser'],
+      package_dir={'ish_parser': 'src'},
       py_modules=['ish_parser', 'ish_report', 'Temperature', 'Observation', 'Units', 'Components', 'Distance', 'Speed', 'Direction', 'Pressure', 'ReportType', 'Humidity'])
