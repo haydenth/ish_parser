@@ -1,6 +1,7 @@
 import unittest
 import datetime
 import pytz
+import math
 from src.ish_report import ish_report, ish_reportException
 
 class ish_report_test(unittest.TestCase):
@@ -66,7 +67,7 @@ class ish_report_test(unittest.TestCase):
     noaa_string = """0281725300948462014010508237+41995-087934FM-16+0205KORD V0303505N00625005795MN0020125N5-00565-00835999999ADDAA101000531AU110030015AW1715GA1025+003355991GA2085+005795991GD11991+0033559GD24991+0057959GE19MSL   +99999+99999GF199999990990003351991991MA1101665099215REMMET11601/05/14 02:23:02 SPECI KORD 050823Z 35012KT 1 1/4SM -SN FEW011 OVC019 M06/M08 A3002 RMK AO2 P0002 T10561083 $ (MJF)"""
     weather = ish_report()
     weather.loads(noaa_string)
-    self.assertEqual(weather.present_weather, 
+    self.assertEqual(weather.present_weather,
                       ['Light Snow'])
     self.assertEqual(weather.precipitation, [{'depth': 0.5, 'hours': 1}])
 
@@ -128,7 +129,7 @@ class ish_report_test(unittest.TestCase):
                       datetime.datetime(2008, 2, 2, 5, 59, tzinfo=pytz.UTC))
     precip = weather.precipitation[0]
     self.assertEqual(precip['hours'], 24)
-    self.assertEqual(precip['depth'], 3.6) 
+    self.assertEqual(precip['depth'], 3.6)
 
   def test_another_random_string(self):
     noaa_string = """041572530094846198002081200C+41983-087900SAO  +0201ORD  V02099959000050076249N0128005N1-00565-00785103405ADDAA101000095AG12000AJ100089199999999AY121999GA1999+007624064GD14085+9999999GD20995+9999999GD30995+9999999GD40995+9999999GF108085081051008001999999KA1999M-00171KA2999N-00561MA1103321100815MD1510001+9999MW1021WG199190199999EQDQ01    003PRSWM1N01 00000JPWTH 1QNNE11 1 00610E11 1 00099E11 1 00099E11 1 00099G11 1 00025H11 1 15025K11 1 00018L11 1 00800M11 1 29770N11 1 00000Q11 1 10340S11 1 00022V11 1 01010X11 1 00000"""
@@ -167,7 +168,7 @@ class ish_report_test(unittest.TestCase):
 
   def test_bad_length(self):
     noaa_string = """1243725300948462014010101087+41995-087934FM-16+0205KORD V0302905N00155004575MN0020125N5-01115-01445999999ADDAA101000231AU110030015AW1715GA1085+004575991GD14991+0045759GE19MSL   +99999+99999GF199999990990004571991991MA1102615100145REMMET10912/31/13 19:08:03 SPECI KORD 010108Z 29003KT 1 1/4SM -SN OVC015 M11/M14 A3030 RMK AO2 P0001 T11111144 $ (KLC)"""
-    self.assertRaises(ish_reportException, 
+    self.assertRaises(ish_reportException,
                       ish_report().loads, noaa_string)
 
   def test_old_ord(self):
@@ -192,3 +193,16 @@ class ish_report_test(unittest.TestCase):
     self.assertEqual(ish.sea_level_pressure, 9999.9)
     self.assertEqual(str(ish.sea_level_pressure), 'MISSING')
     self.assertEqual(str(ish.sky_ceiling), '22000')
+
+  def test_string_for_get_numeric_implementation(self):
+      noaa = """0059035480999991943070124004+52467+000950FM-12+004699999V0200501N00461220001CN0040001N9+99999+99999999999ADDAY121999GA1001+999999999GF108991081051004501999999MW1051"""
+      ish = ish_report()
+      ish.loads(noaa)
+      self.assertEqual(ish.datetime,
+                       datetime.datetime(1943, 7, 2, 0, 0, tzinfo=pytz.UTC))
+      self.assertTrue(math.isnan(ish.air_temperature.get_numeric()))
+      self.assertTrue(math.isnan(ish.humidity.get_numeric()))
+      self.assertEqual(ish.wind_direction.get_numeric(), 50)
+      self.assertEqual(ish.wind_speed.get_numeric(), 4.6)
+      self.assertEqual(ish.visibility_distance.get_numeric(), 4000)
+      self.assertEqual(ish.sky_ceiling.get_numeric(), 22000)
