@@ -13,6 +13,7 @@ class ish_parser_test(unittest.TestCase):
   RECURSIONBUG = 'tests/035480-99999-1943'
   OTHER_BUG = 'tests/723030-13714-1973'
   OLDRANDOMFILE = 'tests/725300-94846-1983'
+  AT1_ERROR = 'tests/726430-14920-2015'
 
   def test_from_file(self):
     ''' test that we can load a weather file from a file '''
@@ -23,6 +24,13 @@ class ish_parser_test(unittest.TestCase):
     self.assertEqual(len(wf.get_reports()), 4262)
     self.assertEqual(type(wf.get_reports()[10]), ish_report)
     self.assertEqual(len(wf.get_observations()), 3135)
+
+  def test_issues_with_missing_at1(self):
+    with open(self.AT1_ERROR) as fp:
+      content = fp.read()
+    wf = ish_parser()
+    wf.loads(content)
+    self.assertEqual(len(wf.get_reports()), 154)
 
   def test_random_old_file(self):
     ''' test that we can load another random old file with no problems 
