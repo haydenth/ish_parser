@@ -1,4 +1,5 @@
 from .Distance import Distance
+from .CloudCoverage import CloudCoverage
 
 class BaseComponent(object):
   ''' base component handler '''
@@ -41,7 +42,8 @@ class SkyCoverComponent(BaseComponent):
   ''' handle GA1..GA8 sky component types '''
   
   def loads(self, string):
-    pass
+    self.sky_cover = CloudCoverage(string[0:2], CloudCoverage.OKTA, string[2:3])
+    self.base_height = Distance(int(string[4:9]), Distance.METERS, string[9:10])
 
 class SnowDepthComponent(BaseComponent):
   ''' handle AJ1 snow depth types '''

@@ -10,3 +10,4 @@ from .Units import Units
 from .Components import SnowDepthComponent, PrecipitationComponent, SkyCoverComponent
 from .ReportType import ReportType
 from .Humidity import Humidity
+from .CloudCoverage import CloudCoverage

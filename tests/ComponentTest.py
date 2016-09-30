@@ -1,5 +1,6 @@
 import unittest
-from src import SnowDepthComponent
+from src import CloudCoverage
+from src import SnowDepthComponent, SkyCoverComponent
 
 class SnowDepthComponentTest(unittest.TestCase):
 
@@ -12,8 +13,8 @@ class SnowDepthComponentTest(unittest.TestCase):
 class SkyCoverComponentTest(unittest.TestCase):
 
   def test_string(self):
-    sample_string = '1005+999999999'
-    sky = SnowCoverComponent()
+    sample_string = '005+999999999'
+    sky = SkyCoverComponent()
     sky.loads(sample_string)
-    self.assertEquals(sky.coverage, {'code': '10', 'quality': '5', 'height': 
-    self.assertEquals(sky.cloud_type_code, '
+    self.assertEquals(sky.sky_cover, CloudCoverage('00', CloudCoverage.OKTA, '5'))
+    self.assertEquals(str(sky.base_height), 'MISSING')
