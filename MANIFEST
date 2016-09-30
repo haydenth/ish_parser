@@ -10,5 +10,6 @@ src/ReportType.py
 src/Speed.py
 src/Temperature.py
 src/Units.py
+src/__init__.py
 src/ish_parser.py
 src/ish_report.py
