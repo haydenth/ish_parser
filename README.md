@@ -61,6 +61,13 @@ The current stable version is available on pip. If you're a python and pip user,
 sudo pip install git+https://github.com/haydenth/ish_parser.git
 ```
 
+You can also install or upgrade it locally from a local directory, e.g.:
+
+```
+pip install --user -e ./ish_parser
+pip install --user --upgrade --force-reinstall -e ./ish_parser
+```
+
 If you'd like to install the current stable version (will most certainly be behind the development version). You can just use the regular pip repository:
 ```
 sudo pip install ish_parser
@@ -92,6 +99,30 @@ print report.air_temperature
 
 # see all the other options for this report
 print dir(report)
+```
+
+Note that you can decompress a gzip file on-the-fly:
+
+```
+# import ish_parser library
+from ish_parser import ish_parser
+
+import gzip
+SOMEFILE = 'path/to/a/ish/gzip/file'
+
+# read the file
+
+# Read content
+with gzip.open(SOMEFILE,'rb') as fin:
+    content = bytes.decode(fin.read())
+fin.close()
+
+wf = ish_parser()
+wf.loads(content)
+
+# get the list of all reports
+reports = wf.get_reports()
+print len(reports)
 ```
 
 Developing
