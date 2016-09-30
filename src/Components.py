@@ -37,6 +37,12 @@ class PrecipitationComponent(BaseComponent):
                           'depth': Distance(int(string[2:6])/10.0,
                                    Distance.MILLIMETERS, string[5:6])}
 
+class SkyCoverComponent(BaseComponent):
+  ''' handle GA1..GA8 sky component types '''
+  
+  def loads(self, string):
+    pass
+
 class SnowDepthComponent(BaseComponent):
   ''' handle AJ1 snow depth types '''
 

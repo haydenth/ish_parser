@@ -10,7 +10,7 @@ from .Humidity import Humidity
 from .ReportType import ReportType
 from .Pressure import Pressure
 from .Direction import Direction
-from .Components import SnowDepthComponent, PrecipitationComponent, PresentWeatherComponent
+from .Components import SnowDepthComponent, PrecipitationComponent, PresentWeatherComponent, SkyCoverComponent
 
 class ish_reportException(BaseException):
   ''' handler class for exceptions '''
@@ -139,12 +139,12 @@ class ish_report(object):
          'CX2': ['HOURLY-GEONOR-VIBRATING-WIRE', 26],
          'CX3': ['HOURLY-GEONOR-VIBRATING-WIRE', 26],
          'ED1': ['RUNWAY-VISUAL-RANGE', 8],
-         'GA1': ['SKY-COVER-LAYER', 13],
-         'GA2': ['SKY-COVER-LAYER', 13],
-         'GA3': ['SKY-COVER-LAYER', 13],
-         'GA4': ['SKY-COVER-LAYER', 13],
-         'GA5': ['SKY-COVER-LAYER', 13],
-         'GA6': ['SKY-COVER-LAYER', 13],
+         'GA1': ['SKY-COVER-LAYER', 13, SkyCoverComponent],
+         'GA2': ['SKY-COVER-LAYER', 13, SkyCoverComponent],
+         'GA3': ['SKY-COVER-LAYER', 13, SkyCoverComponent],
+         'GA4': ['SKY-COVER-LAYER', 13, SkyCoverComponent],
+         'GA5': ['SKY-COVER-LAYER', 13, SkyCoverComponent],
+         'GA6': ['SKY-COVER-LAYER', 13, SkyCoverComponent],
          'GD1': ['SKY-COVER-SUMMATION', 12],
          'GD2': ['SKY-COVER-SUMMATION', 12],
          'GD3': ['SKY-COVER-SUMMATION', 12],
