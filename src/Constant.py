@@ -4,9 +4,11 @@ from .Observation import Observation
 class Constant(Observation):
   ''' constant is for constant variables that have types
   or indices associated with them like types of clouds, etc'''
-  MISSING = [99]
+  MISSING = ["99"]
 
   def __str__(self):
+    if self._obs_value in self._obs_index.keys():
+      return self._obs_index.get(self._obs_value)  
     if self._obs_value in self.MISSING:
       return 'MISSING'
     else:

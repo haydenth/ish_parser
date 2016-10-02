@@ -16,5 +16,4 @@ class SkyCoverComponentTest(unittest.TestCase):
     sample_string = '005+999999999'
     sky = SkyCoverComponent()
     sky.loads(sample_string)
-    self.assertEquals(sky.sky_cover, CloudCoverage('00', CloudCoverage.OKTA, '5'))
-    self.assertEquals(str(sky.base_height), 'MISSING')
+    self.assertEquals(sky.sky_cover['coverage'], CloudCoverage('00', CloudCoverage.OKTA, '5'))
