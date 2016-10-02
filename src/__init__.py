@@ -11,3 +11,4 @@ from .Components import SnowDepthComponent, PrecipitationComponent, SkyCoverComp
 from .ReportType import ReportType
 from .Humidity import Humidity
 from .CloudCoverage import CloudCoverage
+from .Constant import Constant

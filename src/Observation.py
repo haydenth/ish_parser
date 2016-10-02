@@ -5,10 +5,11 @@ class ObservationException(BaseException):
 class Observation(object):
   ''' base class to hold observational data '''
 
-  def __init__(self, obs_value, obs_units='', obs_quality=''):
+  def __init__(self, obs_value, obs_units='', obs_quality='', obs_index=None):
     self._obs_value = obs_value
     self._obs_units = obs_units
     self._obs_quality = obs_quality
+    self._obs_index = obs_index
 
   def __repr__(self):
     return str(self._obs_value)

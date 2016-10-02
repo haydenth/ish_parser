@@ -304,11 +304,14 @@ Air Temperature: %s C (%s F)
 Wind Speed: %s m/s (%s mph)
 Wind Direction: %s
 Present Weather Obs: %s
+Precipitation: %s
+Cloud Coverage: %s oktas
     """ % (self.weather_station, self.latitude, self.longitude,
            self.elevation, self.datetime, self.air_temperature,
            self.air_temperature.get_fahrenheit(), self.wind_speed,
            self.wind_speed.get_miles(), self.wind_direction,
-           str(self.present_weather))
+           str(self.present_weather), str(self.precipitation),
+           str(self.sky_cover))
 
   def loads(self, noaa_string):
     ''' load in a report (or set) from a string '''
