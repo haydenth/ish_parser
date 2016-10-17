@@ -29,5 +29,7 @@ class Observation(object):
   def _get_numeric(self, missing):
       if self._obs_value in missing:
           return float('NaN')
+      elif int(self._obs_value) in missing:
+          return float('NaN')
       else:
           return float(self._obs_value)
