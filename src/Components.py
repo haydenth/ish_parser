@@ -1,6 +1,7 @@
 from .Distance import Distance
 from .CloudCoverage import CloudCoverage
 from .Constant import Constant
+from .Minutes import Minutes
 
 class BaseComponent(object):
   ''' base component handler '''
@@ -76,6 +77,12 @@ class SkyCoverComponent(BaseComponent):
                                      Distance.METERS, string[9:10]),
                       'cloud_type': Constant(string[9:11], None, 
                                     string[11:12], self.CLOUD_TYPES)}
+
+class SolarIrradianceComponent(BaseComponent):
+  ''' handle GM1 solar irradiance '''
+
+  def loads(self, string):
+    self.solar_irradiance = {'time_period': Minutes(string[0:4])}
 
 class SnowDepthComponent(BaseComponent):
   ''' handle AJ1 snow depth types '''

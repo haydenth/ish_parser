@@ -19,7 +19,9 @@ class ish_report_test(unittest.TestCase):
     wx.loads(noaa_string)
     self.assertEquals(type(wx.sky_cover), list)
     self.assertEquals(len(wx.sky_cover), 2) #should have two
-    
+    self.assertIn('coverage', wx.sky_cover[1].keys())
+    self.assertIn('base_height', wx.sky_cover[1].keys())
+
   def test_kync_single_date(self):
     # 1:51 AM,61.0,51.1,70,29.97,10.0,WNW,4.6,-,N/A,,Clear,290,2014-09-18 05:51:00
     noaa_string = """0185725053947282014091806517+40779-073969FM-15+0048KNYC V0309999V002152200059N0160935N5+01615+01065101455ADDAA101000095GA1005+999999999GD10991+9999999GF100991999999999999999999MA1101565100985REMMET09009/18/14 01:51:02 METAR KNYC 180651Z VRB04KT 10SM CLR 16/11 A2999 RMK AO2 SLP145 T01610106"""

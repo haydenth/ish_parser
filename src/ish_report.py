@@ -10,7 +10,7 @@ from .Humidity import Humidity
 from .ReportType import ReportType
 from .Pressure import Pressure
 from .Direction import Direction
-from .Components import SnowDepthComponent, PrecipitationComponent, PresentWeatherComponent, SkyCoverComponent
+from .Components import SnowDepthComponent, PrecipitationComponent, PresentWeatherComponent, SkyCoverComponent, SolarIrradianceComponent
 
 class ish_reportException(BaseException):
   ''' handler class for exceptions '''
@@ -163,7 +163,7 @@ class ish_report(object):
          'GJ1': ['SUNSHINE', 5],
          'GK1': ['SUNSHINE-OBSERVATION', 4],
          'GL1': ['SUSHINE-OBSERVATION-FOR-MONTH', 6],
-         'GM1': ['SOLAR-IRRADIANCE', 30],
+         'GM1': ['SOLAR-IRRADIANCE', 30, SolarIrradianceComponent],
          'GN1': ['SOLAR-RADIATION', 28],
          'GO1': ['NET-SOLAR-RADIATION', 19],
          'GP1': ['MODELED-SOLAR', 31],
