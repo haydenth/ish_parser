@@ -18,7 +18,11 @@ class Constant(Observation):
     return self.__str__()
 
   def __eq__(self, value2):
-    if self._obs_value == value2:
+    if self._obs_value in self._obs_index.keys():
+      if self._obs_index.get(self._obs_value) == value2:
+        return True
+
+    if str(self._obs_value) == str(value2):
       return True
     else:
       return False

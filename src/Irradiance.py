@@ -1,9 +1,9 @@
 from .Observation import Observation
 
-class Minutes(Observation):
-  ''' represents (obviously) minutes '''
+class Irradiance(Observation):
+  ''' Global horizontal irradiance measured using a pyranometer. Unit is watts per square meter
+   (W/m2) in whole values. Waveband ranges from 0.4 - 2.3 micrometers.'''
   MISSING = 9999
-  MINUTES_IN_HOUR = 60.00
 
   def __str__(self):
     if int(self._obs_value) == self.MISSING:
@@ -16,9 +16,3 @@ class Minutes(Observation):
       return True
     else:
       return False
-
-  def get_hours(self):
-    if int(self._obs_value) == self.MISSING:
-      return 'MISSING'
-    else:
-      return self._obs_value / self.MINUTES_IN_HOUR

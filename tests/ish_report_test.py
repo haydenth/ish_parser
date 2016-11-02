@@ -12,7 +12,8 @@ class ish_report_test(unittest.TestCase):
     weather.loads(noaa_string)
     self.assertEquals(len(weather.solar_irradiance), 1) # verify only one row
     self.assertEquals(weather.solar_irradiance[0]['time_period'], 60)
-
+    print(weather.formatted())
+    
   def test_kord_single_day(self):
     noaa_string = """0296725300948462015010900397+41995-087934FM-16+0205KORD V0202205N00725006105MN0032195N5-01065-01395999999ADDAA101000021AU110030015AU225030015AW1275AW2715GA1085+006105999GD14991+0061059GE19MSL   +99999+99999GF199999999999006101999999MA1100955098525OC101135OD149901491220REMMET12301/08/15 18:39:01 SPECI KORD 090039Z 22014G22KT 2SM -SN BLSN OVC020 M11/M14 A2981 RMK AO2 PK WND 22029/2356 P0000 T11061139"""
     weather = ish_report()
