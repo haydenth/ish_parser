@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup(name='ish_parser',
-      version='0.0.8',
+      version='0.0.9',
       author_email='thayden@gmail.com',
       description='Parser for NOAA ISH (integrated surface hourly) reports',
       author='thayden',
