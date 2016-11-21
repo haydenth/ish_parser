@@ -30,6 +30,7 @@ class ish_report_test(unittest.TestCase):
     self.assertIn('coverage', wx.sky_cover[1].keys())
     self.assertIn('base_height', wx.sky_cover[1].keys())
 
+    # make sure we're handling the GF1 ok
     self.assertIn('total_coverage', wx.sky_condition_observation[0])
 
   def test_kync_single_date(self):
