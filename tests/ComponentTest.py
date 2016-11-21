@@ -1,6 +1,7 @@
 import unittest
 from src import CloudCoverage, Minutes, Irradiance
 from src import SnowDepthComponent, SkyCoverComponent, SolarIrradianceComponent
+from src import SkyConditionObservationComponent
 
 class SnowDepthComponentTest(unittest.TestCase):
 
@@ -29,3 +30,14 @@ class SolarIrradianceComponentTest(unittest.TestCase):
     self.assertEquals(sol.solar_irradiance['irradiance_data_flag'], 'Value estimated; passes all pertinent SERI_QC tests')
     self.assertEquals(sol.solar_irradiance['direct_beam_irradiance'], Irradiance('0989'))
     self.assertEquals(sol.solar_irradiance['uvb_global_irradiance'], Irradiance('9999'))
+
+class SkyConditionObservationComponentTest(unittest.TestCase):
+
+  def test_string(self):
+    sample_string = '08991999999999999999999'
+    sky = SkyConditionObservationComponent()
+    sky.loads(sample_string)
+    self.assertEquals(sky.sky_condition_observation['total_coverage'],
+                      CloudCoverage('08', CloudCoverage.OKTA, '1'))
+    self.assertEquals(sky.sky_condition_observation['total_lowest_coverage'],
+                      CloudCoverage('99', CloudCoverage.OKTA, '9'))

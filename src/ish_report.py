@@ -10,7 +10,8 @@ from .Humidity import Humidity
 from .ReportType import ReportType
 from .Pressure import Pressure
 from .Direction import Direction
-from .Components import SnowDepthComponent, PrecipitationComponent, PresentWeatherComponent, SkyCoverComponent, SolarIrradianceComponent
+from .Components import SnowDepthComponent, PrecipitationComponent, PresentWeatherComponent
+from .Components import SkyCoverComponent, SolarIrradianceComponent, SkyConditionObservationComponent
 
 class ish_reportException(BaseException):
   ''' handler class for exceptions '''
@@ -152,7 +153,7 @@ class ish_report(object):
          'GD5': ['SKY-COVER-SUMMATION', 12],
          'GD6': ['SKY-COVER-SUMMATION', 12],
          'GE1': ['SKY-CONDITION', 19],
-         'GF1': ['SKY-CONDITION', 23],
+         'GF1': ['SKY-CONDITION', 23, SkyConditionObservationComponent],
          'GG1': ['BELOW-STATION-CLOUD-LAYER', 15],
          'GG2': ['BELOW-STATION-CLOUD-LAYER', 15],
          'GG3': ['BELOW-STATION-CLOUD-LAYER', 15],

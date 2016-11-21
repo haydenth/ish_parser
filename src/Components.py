@@ -41,6 +41,15 @@ class PrecipitationComponent(BaseComponent):
                           'depth': Distance(int(string[2:6])/10.0,
                                    Distance.MILLIMETERS, string[5:6])}
 
+class SkyConditionObservationComponent(BaseComponent):
+  ''' handler for GF1 data type '''
+
+  def loads(self, string):
+    self.sky_condition_observation = {'total_coverage': CloudCoverage(string[0:2],
+                                                        CloudCoverage.OKTA, string[3:4]),
+                                      'total_lowest_coverage': CloudCoverage(string[5:7],
+                                                               CloudCoverage.OKTA, string[7:8])}
+
 class SkyCoverComponent(BaseComponent):
   ''' handle GA1..GA8 sky component types '''
 
