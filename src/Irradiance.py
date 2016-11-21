@@ -9,7 +9,7 @@ class Irradiance(Observation):
     if int(self._obs_value) == self.MISSING:
       return 'MISSING'
     else:
-      return int(self._obs_value)
+      return self._obs_value
 
   def __eq__(self, other_value):
     if int(self._obs_value) == other_value:
