@@ -10,7 +10,7 @@ class CloudCoverage(Observation):
   8 oktas (completely overcast).
   '''
   OKTA = 1
-  MISSING = [99]
+  MISSING = ['99', 99]
 
   def __str__(self):
     if self._obs_value in self.MISSING:
