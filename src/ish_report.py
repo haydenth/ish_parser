@@ -12,6 +12,7 @@ from .Pressure import Pressure
 from .Direction import Direction
 from .Components import SnowDepthComponent, PrecipitationComponent, PresentWeatherComponent
 from .Components import SkyCoverComponent, SolarIrradianceComponent, SkyConditionObservationComponent
+from .Components import SkyCoverSummationComponent
 
 class ish_reportException(BaseException):
   ''' handler class for exceptions '''
@@ -146,12 +147,12 @@ class ish_report(object):
          'GA4': ['SKY-COVER-LAYER', 13, SkyCoverComponent],
          'GA5': ['SKY-COVER-LAYER', 13, SkyCoverComponent],
          'GA6': ['SKY-COVER-LAYER', 13, SkyCoverComponent],
-         'GD1': ['SKY-COVER-SUMMATION', 12],
-         'GD2': ['SKY-COVER-SUMMATION', 12],
-         'GD3': ['SKY-COVER-SUMMATION', 12],
-         'GD4': ['SKY-COVER-SUMMATION', 12],
-         'GD5': ['SKY-COVER-SUMMATION', 12],
-         'GD6': ['SKY-COVER-SUMMATION', 12],
+         'GD1': ['SKY-COVER-SUMMATION', 12, SkyCoverSummationComponent],
+         'GD2': ['SKY-COVER-SUMMATION', 12, SkyCoverSummationComponent],
+         'GD3': ['SKY-COVER-SUMMATION', 12, SkyCoverSummationComponent],
+         'GD4': ['SKY-COVER-SUMMATION', 12, SkyCoverSummationComponent],
+         'GD5': ['SKY-COVER-SUMMATION', 12, SkyCoverSummationComponent],
+         'GD6': ['SKY-COVER-SUMMATION', 12, SkyCoverSummationComponent],
          'GE1': ['SKY-CONDITION', 19],
          'GF1': ['SKY-CONDITION', 23, SkyConditionObservationComponent],
          'GG1': ['BELOW-STATION-CLOUD-LAYER', 15],
@@ -307,13 +308,15 @@ Wind Direction: %s
 Present Weather Obs: %s
 Precipitation: %s
 Cloud Coverage: %s oktas
+Cloud Summation: %s
 Solar Irradiance: %s 
     """ % (self.weather_station, self.latitude, self.longitude,
            self.elevation, self.datetime, self.air_temperature,
            self.air_temperature.get_fahrenheit(), self.wind_speed,
            self.wind_speed.get_miles(), self.wind_direction,
            str(self.present_weather), str(self.precipitation),
-           str(self.sky_cover), str(self.solar_irradiance))
+           str(self.sky_cover), str(self.sky_cover_summation),
+           str(self.solar_irradiance))
 
   def loads(self, noaa_string):
     ''' load in a report (or set) from a string '''

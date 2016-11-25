@@ -2,6 +2,18 @@ import unittest
 from src import CloudCoverage, Minutes, Irradiance
 from src import SnowDepthComponent, SkyCoverComponent, SolarIrradianceComponent
 from src import SkyConditionObservationComponent
+from src import SkyCoverSummationComponent
+
+class SkyCoverSummationComponentTest(unittest.TestCase):
+
+  def test_string(self):
+    simple_string = '4991+0061059'
+    sd = SkyCoverSummationComponent()
+    sd.loads(simple_string)
+    self.assertEquals(sd.sky_cover_summation, {'coverage': 'OVERCAST - 8/8 coverage',
+                                               'secondary_coverage': 'Missing',
+                                               'height': 610,
+                                               'characteristic': 'Missing'})
 
 class SnowDepthComponentTest(unittest.TestCase):
 
