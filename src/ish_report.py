@@ -10,9 +10,7 @@ from .Humidity import Humidity
 from .ReportType import ReportType
 from .Pressure import Pressure
 from .Direction import Direction
-from .Components import SnowDepthComponent, PrecipitationComponent, PresentWeatherComponent
-from .Components import SkyCoverComponent, SolarIrradianceComponent, SkyConditionObservationComponent
-from .Components import SkyCoverSummationComponent
+from .Components import *
 
 class ish_reportException(BaseException):
   ''' handler class for exceptions '''
