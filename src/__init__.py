@@ -7,7 +7,6 @@ from .Direction import Direction
 from .Pressure import Pressure
 from .ish_parser import ish_parser
 from .Units import Units
-from .Components import *
 from .ReportType import ReportType
 from .Humidity import Humidity
 from .CloudCoverage import CloudCoverage

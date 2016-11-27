@@ -1,8 +1,6 @@
 import unittest
 from src import CloudCoverage, Minutes, Irradiance
-from src import SnowDepthComponent, SkyCoverComponent, SolarIrradianceComponent
-from src import SkyConditionObservationComponent
-from src import SkyCoverSummationComponent
+from src.Components import *
 
 class SkyCoverSummationComponentTest(unittest.TestCase):
 
