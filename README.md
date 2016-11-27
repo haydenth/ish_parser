@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/haydenth/ish_parser.png)](https://travis-ci.org/haydenth/ish_parser/)
+
 NOAA ISH Weather Parser Library
 --------------------------------
 It's surprisingly hard to find accurate raw weather data that hasn't already been parsed by some third party and is free. Fortunately, the NOAA puts out a daily/weekly/yearly feed of raw weather data for thousands of weather stations. It's in a format called ISH (integrated surface reporting hourly). There is also a daily format as well. The format is tricky and has hundreds of delimters and variable length text fields. It's tricky to parse. Full documentation is available from the NOAA:
