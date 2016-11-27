@@ -1,6 +1,6 @@
 import unittest
 import datetime
-from src.ish_report import ish_report, ish_reportException
+from ish_parser.ish_report import ish_report, ish_reportException
 
 class remarks_test(unittest.TestCase):
 

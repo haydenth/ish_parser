@@ -2,7 +2,7 @@ import unittest
 import datetime
 import pytz
 import math
-from src.ish_report import ish_report, ish_reportException
+from ish_parser import ish_report, ish_reportException
 
 class ish_report_test(unittest.TestCase):
 

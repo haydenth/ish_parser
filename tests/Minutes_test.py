@@ -1,4 +1,4 @@
-from src import Minutes
+from ish_parser import Minutes
 import unittest
 
 class Minutes_test(unittest.TestCase):

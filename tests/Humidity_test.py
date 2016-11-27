@@ -1,4 +1,4 @@
-from src import Humidity
+from ish_parser import Humidity
 import unittest
 
 class Humidity_test(unittest.TestCase):

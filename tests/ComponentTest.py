@@ -1,6 +1,6 @@
 import unittest
-from src import CloudCoverage, Minutes, Irradiance
-from src.Components import *
+from ish_parser import CloudCoverage, Minutes, Irradiance
+from ish_parser.Components import *
 
 class SkyCoverSummationComponentTest(unittest.TestCase):
 
