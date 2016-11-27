@@ -10,15 +10,15 @@ class ish_report_test(unittest.TestCase):
     noaa_string = """0104724666999992004042720009+39567-104850NSRDB+179399999V020999999999999999999999999999+99999+99999999999ADDGM1006010140690989029013102999999GP10060100702008098902015012202008GQ100600268919729GR100601203913489"""
     weather = ish_report()
     weather.loads(noaa_string)
-    self.assertEquals(len(weather.solar_irradiance), 1) # verify only one row
-    self.assertEquals(weather.solar_irradiance[0]['time_period'], 60)
+    self.assertEqual(len(weather.solar_irradiance), 1) # verify only one row
+    self.assertEqual(weather.solar_irradiance[0]['time_period'], 60)
     print(weather.formatted())
     
   def test_kord_single_day(self):
     noaa_string = """0296725300948462015010900397+41995-087934FM-16+0205KORD V0202205N00725006105MN0032195N5-01065-01395999999ADDAA101000021AU110030015AU225030015AW1275AW2715GA1085+006105999GD14991+0061059GE19MSL   +99999+99999GF199999999999006101999999MA1100955098525OC101135OD149901491220REMMET12301/08/15 18:39:01 SPECI KORD 090039Z 22014G22KT 2SM -SN BLSN OVC020 M11/M14 A2981 RMK AO2 PK WND 22029/2356 P0000 T11061139"""
     weather = ish_report()
     weather.loads(noaa_string)
-    self.assertEquals(len(weather.sky_cover_summation), 1)
+    self.assertEqual(len(weather.sky_cover_summation), 1)
     print(weather.formatted())
 
   def test_cloud_coverage_multiple_layers(self):
@@ -26,8 +26,8 @@ class ish_report_test(unittest.TestCase):
     noaa_string = """0275726430149202015010114537+43879-091253FM-15+0200KLSE V0302105N00465022865MN0160935N5-00835-01285101565ADDAA101000095GA1075+022865999GA2085+027435999GD13991+0228659GD24991+0274359GE19MSL   +99999+99999GF199999999999022861999999MA1101355098975MD1590029+9999REMMET11301/01/15 08:53:02 METAR KLSE 011453Z 21009KT 10SM BKN075 OVC090 M08/M13 A2993 RMK AO2 SLP156 T10831128 55002 (JK)"""
     wx = ish_report()
     wx.loads(noaa_string)
-    self.assertEquals(type(wx.sky_cover), list)
-    self.assertEquals(len(wx.sky_cover), 2) #should have two
+    self.assertEqual(type(wx.sky_cover), list)
+    self.assertEqual(len(wx.sky_cover), 2) #should have two
     self.assertIn('coverage', wx.sky_cover[1].keys())
     self.assertIn('base_height', wx.sky_cover[1].keys())
 
