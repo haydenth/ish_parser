@@ -42,8 +42,7 @@ If you uncompress, you'll find a ton of data in the file. In the case of O'hare 
 There is a TON of data encoded in these records in a very strange weird way. This module does its best to parse out this crazyness. Here's an example:
 
 ```
->>> import ish_parser
->>> from src import ish_report
+>>> from ish_parser import ish_report, ish_reportException
 >>> rpt = ish_report().loads("""0281725300948462014010508237+41995-087934FM-16+0205KORD V0303505N00625005795MN0020125N5-00565-00835999999ADDAA101000531AU110030015AW1715GA1025+003355991GA2085+005795991GD11991+0033559GD24991+0057959GE19MSL   +99999+99999GF199999990990003351991991MA1101665099215REMMET11601/05/14 02:23:02 SPECI KORD 050823Z 35012KT 1 1/4SM -SN FEW011 OVC019 M06/M08 A3002 RMK AO2 P0002 T10561083 $ (MJF)""")
 >>> print rpt
 <src.ish_report.ish_report object at 0x7f9ba29cb8d0>
