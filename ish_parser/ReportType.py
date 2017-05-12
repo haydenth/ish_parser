@@ -45,7 +45,7 @@ class ReportType(Observation):
     return self.MAP[self._obs_value]
 
   def __repr__(self):
-    return self.__str__(self)
+    return self.__str__()
 
   def __eq__(self, other_value):
     if self._obs_value == other_value:
