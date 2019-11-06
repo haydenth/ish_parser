@@ -311,7 +311,7 @@ Solar Irradiance: %s
     """ % (self.weather_station, self.latitude, self.longitude,
            self.elevation, self.datetime, self.air_temperature,
            self.air_temperature.get_fahrenheit(), self.wind_speed,
-           self.wind_speed.get_miles(), self.wind_direction,
+           self.wind_speed.get_MilesPerHour(), self.wind_direction,
            str(self.present_weather), str(self.precipitation),
            str(self.sky_cover), str(self.sky_cover_summation),
            str(self.solar_irradiance))
