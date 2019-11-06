@@ -111,7 +111,7 @@ class ish_report_test(unittest.TestCase):
     self.assertEqual(weather.report_type, 'FM-15')
     self.assertEqual(weather.elevation, 205)
     self.assertEqual(weather.wind_speed, 1.5)
-    self.assertEqual(weather.wind_speed.get_miles(), 3.3554)
+    self.assertEqual(weather.wind_speed.get_MilesPerHour(), 3.3554)
     self.assertEqual(weather.wind_direction, 250)
     self.assertEqual(weather.sky_ceiling, 579)
     self.assertEqual(weather.air_temperature, -11.1)
