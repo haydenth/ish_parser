@@ -84,12 +84,12 @@ class ish_report(object):
          'AU7': ['WEATHER-OCCURANCE', 8, PresentWeatherComponent],
          'AU8': ['WEATHER-OCCURANCE', 8, PresentWeatherComponent],
          'AU9': ['WEATHER-OCCURANCE', 8, PresentWeatherComponent],
-         'AW1': ['PRESENT-WEATHER-OBSERVATION', 3],
-         'AW2': ['PRESENT-WEATHER-OBSERVATION', 3],
-         'AW3': ['PRESENT-WEATHER-OBSERVATION', 3],
-         'AW4': ['PRESENT-WEATHER-OBSERVATION', 3],
-         'AW5': ['PRESENT-WEATHER-OBSERVATION', 3],
-         'AW6': ['PRESENT-WEATHER-OBSERVATION', 3],
+         'AW1': ['PRESENT-WEATHER-OBSERVATION', 3, PresentWeatherConditionComponent],
+         'AW2': ['PRESENT-WEATHER-OBSERVATION', 3, PresentWeatherConditionComponent],
+         'AW3': ['PRESENT-WEATHER-OBSERVATION', 3, PresentWeatherConditionComponent],
+         'AW4': ['PRESENT-WEATHER-OBSERVATION', 3, PresentWeatherConditionComponent],
+         'AW5': ['PRESENT-WEATHER-OBSERVATION', 3, PresentWeatherConditionComponent],
+         'AW6': ['PRESENT-WEATHER-OBSERVATION', 3, PresentWeatherConditionComponent],
          'AX1': ['PAST-WEATHER-OBSERVATION', 6],
          'AX2': ['PAST-WEATHER-OBSERVATION', 6],
          'AX3': ['PAST-WEATHER-OBSERVATION', 6],
@@ -461,7 +461,10 @@ Solar Irradiance: %s
   def get_additional_field(self, addl_code):
     ''' Given an additional field code (AA1, AJ1..), return whatever match
     we have available for this code '''
-    return self._additional[addl_code]
+    try:
+      return self._additional[addl_code]
+    except:
+      return None
 
   def additional(self):
     ''' return the entire additional dictionary '''

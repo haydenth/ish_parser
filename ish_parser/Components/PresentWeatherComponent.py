@@ -22,6 +22,18 @@ class PresentWeatherComponent(BaseComponent):
     '8': 'Freezing',
     '9': 'MISSING'
   }
+  EVENT_DESCRIPTOR = {
+    '0': '',
+    '1': '',
+    '2': '',
+    '3': '',
+    '4': '',
+    '5': '',
+    '6': 'Showers',
+    '7': 'Thunderstorm',
+    '8': 'Freezing',
+    '9': ''
+  }
   PRECIP = {
     '00': '',
     '01': 'Drizzle',
@@ -47,12 +59,40 @@ class PresentWeatherComponent(BaseComponent):
     '9': 'MISSING'
   }
   def loads(self, string):
-    self.present_weather_array = {'intensity': self.INTENSITY[string[0:1]],
-                                  'descriptor': self.DESCRIPTOR[string[1:2]],
-                                  'precipitation': self.PRECIP[string[2:4]],
-                                  'obscuration': self.PRECIP[string[4:5]]}
-    present = self.present_weather_array
+    self.present_weather_array = {
+      'intensity': self.INTENSITY[string[0:1]],
+      'descriptor': self.DESCRIPTOR[string[1:2]],
+      'precipitation': self.PRECIP[string[2:4]],
+      'obscuration': self.OBSCURATION[string[4:5]]
+      }
+    self.present_weather_event_array =  {
+      'descriptor': self.EVENT_DESCRIPTOR[string[1:2]],
+      'precipitation': self.PRECIP[string[2:4]],
+      'obscuration': self.OBSCURATION[string[4:5]]
+      }
+      
+    present = [
+      self.INTENSITY[string[0:1]],
+      self.DESCRIPTOR[string[1:2]],
+      self.PRECIP[string[2:4]],
+      self.OBSCURATION[string[4:5]]
+      ]
+    present_event = [
+      self.EVENT_DESCRIPTOR[string[1:2]],
+      self.PRECIP[string[2:4]],
+      self.OBSCURATION[string[4:5]]
+      ]
+
     try:
-      ', '.join([present_weather_array[r] for r in present_weather_array if present_weather_array[r]])
+      self.present_weather = ' '.join([r for r in present if r])
+      self.present_weather_event = ' '.join([r for r in present_event if r])
     except:
       self.present_weather = ""
+      self.present_weather_event = ""
+
+  def __repr__(self):
+    return str({'present_weather': self.present_weather, 'present_weather_event': self.present_weather_event})
+
+  def __str__(self):
+    return str({'present_weather': self.present_weather, 'present_weather_event': self.present_weather_event})
+
