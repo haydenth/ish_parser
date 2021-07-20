@@ -40,3 +40,9 @@ class SkyCoverComponent(BaseComponent):
                                      Distance.METERS, string[9:10]),
                       'cloud_type': Constant(string[9:11], None, 
                                     string[11:12], self.CLOUD_TYPES)}
+
+  def __repr__(self):
+    return str(self.sky_cover)
+
+  def __str__(self):
+    return str(self.sky_cover)

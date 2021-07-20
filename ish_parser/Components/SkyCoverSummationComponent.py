@@ -15,6 +15,15 @@ class SkyCoverSummationComponent(BaseComponent):
     "5": "OBSCURED",
     "6": "PARTIALLY OBSCURED",
     "9": "MISSING" }
+  CLOUD_TYPES_SIMPLE = {
+    "0": "Clear",
+    "1": "Partly Cloudy",
+    "2": "Scattered Clouds",
+    "3": "Mostly Cloudy",
+    "4": "Overcast",
+    "5": "",
+    "6": "",
+    "9": "MISSING" }
   SECONDARY_TYPES = {
     "00": "None, SKC or CLR",
     "01": "One okta - 1/10 or less but not zero",
@@ -46,11 +55,19 @@ class SkyCoverSummationComponent(BaseComponent):
 
   def loads(self, string):
 
-    self.sky_cover_summation = {'coverage': Constant(string[0:1], None,
+    self.sky_cover_summation  = {'coverage': Constant(string[0:1], None,
                                                      string[3:4], self.CLOUD_TYPES),
+                                'coverage_simple': Constant(string[0:1], None,
+                                                     string[3:4], self.CLOUD_TYPES_SIMPLE),
                                 'secondary_coverage': Constant(string[1:3], None,
                                                                string[3:4], self.SECONDARY_TYPES),
                                 'height': Distance(int(string[4:10]),
                                           Distance.METERS, string[10:11]),
                                 'characteristic': Constant(string[11:12], None, 
                                                   None, self.CHARACTERISTIC)}
+
+  def __repr__(self):
+    return str(self.sky_cover_summation)
+
+  def __str__(self):
+    return str(self.sky_cover_summation)

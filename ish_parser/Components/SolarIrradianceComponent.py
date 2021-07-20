@@ -31,3 +31,9 @@ class SolarIrradianceComponent(BaseComponent):
                              'diffuse_irradiance_data_flag': Constant(string[22:24], None,
                                                              string[24:25], self.DATA_FLAGS),
                              'uvb_global_irradiance': Irradiance(string[26:30])}
+
+  def __repr__(self):
+    return str(self.solar_irradiance)
+
+  def __str__(self):
+    return str(self.solar_irradiance)
