@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='ish_parser',
-  version='0.0.23',
+  version='0.0.24',
   author_email='thayden@gmail.com',
   description='Parser for NOAA ISH (integrated surface hourly) reports',
   author='thayden',
