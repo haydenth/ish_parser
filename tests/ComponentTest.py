@@ -8,10 +8,14 @@ class SkyCoverSummationComponentTest(unittest.TestCase):
     simple_string = '4991+0061059'
     sd = SkyCoverSummationComponent()
     sd.loads(simple_string)
-    self.assertEqual(sd.sky_cover_summation, {'coverage': 'OVERCAST - 8/8 coverage',
-                                               'secondary_coverage': 'Missing',
-                                               'height': 610,
-                                               'characteristic': 'Missing'})
+    sky_cover_sum = sd.sky_cover_summation
+
+    self.assertDictEqual(sd.sky_cover_summation, {
+      'coverage': 'OVERCAST - 8/8 coverage',
+      'coverage_simple': 'Overcast',
+      'secondary_coverage': 'Missing',
+      'height': 610,
+      'characteristic': 'Missing'})
 
 class SnowDepthComponentTest(unittest.TestCase):
 
@@ -19,7 +23,7 @@ class SnowDepthComponentTest(unittest.TestCase):
     simple_string = '00089500007694'
     sd = SnowDepthComponent()
     sd.loads(simple_string)
-    self.assertEqual(sd.snow_depth, {'depth': 8, 'quality': '5', 'condition': '9'})
+    self.assertDictEqual(sd.snow_depth, {'depth': 8, 'quality': '5', 'condition': '9'})
 
 class SkyCoverComponentTest(unittest.TestCase):
 
@@ -27,7 +31,8 @@ class SkyCoverComponentTest(unittest.TestCase):
     sample_string = '005+999999999'
     sky = SkyCoverComponent()
     sky.loads(sample_string)
-    self.assertEqual(sky.sky_cover['coverage'], CloudCoverage('00', CloudCoverage.OKTA, '5'))
+    self.assertEqual(sky.sky_cover['coverage'], 
+      CloudCoverage('00', CloudCoverage.OKTA, '5'))
 
 class SolarIrradianceComponentTest(unittest.TestCase):
   
@@ -37,7 +42,8 @@ class SolarIrradianceComponentTest(unittest.TestCase):
     sol.loads(sample_string)
     self.assertEqual(sol.solar_irradiance['time_period'], Minutes(60))
     self.assertEqual(sol.solar_irradiance['global_irradiance'], Irradiance('1014'))
-    self.assertEqual(sol.solar_irradiance['irradiance_data_flag'], 'Value estimated; passes all pertinent SERI_QC tests')
+    self.assertEqual(sol.solar_irradiance['irradiance_data_flag'],
+      'Value estimated; passes all pertinent SERI_QC tests')
     self.assertEqual(sol.solar_irradiance['direct_beam_irradiance'], Irradiance('0989'))
     self.assertEqual(sol.solar_irradiance['uvb_global_irradiance'], Irradiance('9999'))
 
@@ -48,6 +54,6 @@ class SkyConditionObservationComponentTest(unittest.TestCase):
     sky = SkyConditionObservationComponent()
     sky.loads(sample_string)
     self.assertEqual(sky.sky_condition_observation['total_coverage'],
-                      CloudCoverage('08', CloudCoverage.OKTA, '1'))
+      CloudCoverage('08', CloudCoverage.OKTA, '1'))
     self.assertEqual(sky.sky_condition_observation['total_lowest_coverage'],
-                      CloudCoverage('99', CloudCoverage.OKTA, '9'))
+      CloudCoverage('99', CloudCoverage.OKTA, '9'))

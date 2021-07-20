@@ -10,3 +10,9 @@ class SnowDepthComponent(BaseComponent):
     self.equivalent_water = {'depth': string[6:12],
                              'condition': string[12:13],
                              'quality': string[13:14]}
+
+  def __repr__(self):
+    return str({'snow depth': self.snow_depth, 'equivalent water': self.equivalent_water})
+
+  def __str__(self):
+    return str((self.snow_depth, self.equivalent_water))
