@@ -461,10 +461,7 @@ Solar Irradiance: %s
   def get_additional_field(self, addl_code):
     ''' Given an additional field code (AA1, AJ1..), return whatever match
     we have available for this code '''
-    try:
-      return self._additional[addl_code]
-    except:
-      return None
+    return self._additional[addl_code]
 
   def additional(self):
     ''' return the entire additional dictionary '''

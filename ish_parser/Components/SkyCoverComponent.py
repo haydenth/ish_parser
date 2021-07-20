@@ -34,12 +34,13 @@ class SkyCoverComponent(BaseComponent):
     "23": "Cumulus and/or Fracto-cumulus"}
   
   def loads(self, string):
-    self.sky_cover = {'coverage': CloudCoverage(string[0:2],
-                                  CloudCoverage.OKTA, string[2:3]),
-                      'base_height': Distance(int(string[4:9]),
-                                     Distance.METERS, string[9:10]),
-                      'cloud_type': Constant(string[9:11], None, 
-                                    string[11:12], self.CLOUD_TYPES)}
+    self.sky_cover = {
+      'coverage': CloudCoverage(string[0:2],
+        CloudCoverage.OKTA, string[2:3]),
+      'base_height': Distance(int(string[4:9]),
+        Distance.METERS, string[9:10]),
+      'cloud_type': Constant(string[9:11], None, 
+        string[11:12], self.CLOUD_TYPES)}
 
   def __repr__(self):
     return str(self.sky_cover)
