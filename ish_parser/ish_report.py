@@ -190,7 +190,7 @@ class ish_report(object):
          'KF1': ['HOURLY-CALCULATED-TEMP', 6],
          'KG1': ['AVERAGE-DEW_POINT', 11],
          'KG2': ['AVERAGE-DEW_POINT', 11],
-         'MA1': ['ATMOSPHERIC-PRESSURE', 12],
+         'MA1': ['ATMOSPHERIC-PRESSURE', 12, PressureComponent],
          'MD1': ['ATMOSPHERIC-PRESSURE-CHANGE', 11],
          'ME1': ['GEOPOTENTIAL-HEIGHT', 6],
          'MF1': ['ATMOSPHERIC-PRESSURE-STP-SLP', 12],

@@ -7,3 +7,4 @@ from .SkyCoverComponent import SkyCoverComponent
 from .SkyCoverSummationComponent import SkyCoverSummationComponent
 from .SnowDepthComponent import SnowDepthComponent
 from .SolarIrradianceComponent import SolarIrradianceComponent
+from .PressureComponent import PressureComponent
